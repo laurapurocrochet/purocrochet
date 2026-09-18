@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección Abrazo - Tienda Crochet</title>
+
+    <!-- Fuentes Google Fonts (Montserrat y Alex Brush) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Hoja de estilos -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Estilos rápidos para la barra de búsqueda desplegable -->
+    <style>
+        .contenedor-busqueda {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+            z-index: 100;
+        }
+
+        .contenedor-busqueda.activo {
+            display: block;
+        }
+
+        .contenedor-busqueda input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            width: 220px;
+        }
+
+        .iconos-navegacion {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         1. HEADER Y NAVEGACIÓN
+         ========================================== -->
+    <header class="barra-superior">
+        <a href="index.html" class="logo-marca">
+            <img src="logo.png" alt="Logo Tienda Crochet" class="imagen-logo">
+        </a>
+
+        <div class="menu-derecha">
+            <nav class="categorias">
+                <a href="index.html" class="activo">Inicio</a>
+                <a href="Guias de tejido.html">Guías de tejido</a>
+                <a href="contacto.html">Contacto</a>
+            </nav>
+
+            <div class="iconos-navegacion">
+                <!-- Icono de Búsqueda (Lupa) -->
+                <button class="boton-icono" id="boton-lupa" aria-label="Buscar">
+                    <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+
+                <!-- Input de búsqueda desplegable -->
+                <div class="contenedor-busqueda" id="caja-busqueda">
+                    <input type="text" id="input-buscar" placeholder="Buscar productos...">
+                </div>
+
+                <!-- Icono de Bolsa / Carrito -->
+                <a href="#" class="carrito-contenedor" aria-label="Carrito de compras">
+                    <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="contador-rojo">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         2. BANNER PRINCIPAL
+         ========================================== -->
+    <section class="banner-imagen">
+        <img src="banner.jpg" alt="Tejidos artesanales" class="imagen-portada">
+        <div class="superposicion-texto">
+            <h1 class="frase-cursiva-blanca">Hecho a mano</h1>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. COLECCIÓN ABRAZO
+         ========================================== -->
+    <main class="seccion-coleccion">
+        <h2 class="titulo-coleccion">COLECCIÓN ABRAZO</h2>
+
+        <div class="grilla-productos">
+
+            <!-- 1. Ruana Abrazo -->
+            <article class="tarjeta-producto" data-id="ruana-abrazo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="ruana-abrazo-portada.jpg" alt="Ruana Abrazo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">RUANA ABRAZO</a></h3>
+                        <p class="precio-producto">$20.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 2. Cárdigan Abrazo -->
+            <article class="tarjeta-producto" data-id="cardigan-abrazo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="cardigan-abrazo-portada.jpg" alt="Cárdigan Abrazo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">CÁRDIGAN ABRAZO</a></h3>
+                        <p class="precio-producto">$25.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 3. Chaleco Abrazo -->
+            <article class="tarjeta-producto" data-id="chaleco-abrazo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="chaleco-abrazo-portada.jpg" alt="Chaleco Abrazo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">CHALECO ABRAZO</a></h3>
+                        <p class="precio-producto">$15.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 4. Bufanda con Capucha Abrazo -->
+            <article class="tarjeta-producto" data-id="bufanda-capucha-abrazo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="bufanda-capucha-abrazo-portada.jpg" alt="Bufanda con Capucha Abrazo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">BUFANDA CON CAPUCHA ABRAZO</a></h3>
+                        <p class="precio-producto">$12.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 5. Poncho Abrazo -->
+            <article class="tarjeta-producto" data-id="poncho-abrazo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="poncho-abrazo-portada.jpg" alt="Poncho Abrazo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PONCHO ABRAZO</a></h3>
+                        <p class="precio-producto">$20.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 6. Chaleco Abrazo Suave -->
+            <article class="tarjeta-producto" data-id="chaleco-suave">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="chaleco-suave-portada.jpg" alt="Chaleco Abrazo Suave">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">CHALECO ABRAZO SUAVE</a></h3>
+                        <p class="precio-producto">$15.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 7. Cárdigan Abrazo Cálido -->
+            <article class="tarjeta-producto" data-id="cardigan-calido">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="cardigan-calido-portada.jpg" alt="Cárdigan Abrazo Cálido">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">CÁRDIGAN ABRAZO CÁLIDO</a></h3>
+                        <p class="precio-producto">$20.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- ==========================================
+         4. BARRA DE BENEFICIOS
+         ========================================== -->
+    <section class="barra-beneficios">
+        <div class="item-beneficio">
+            <svg class="icono-beneficio-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+            <p><strong>Envíos a todo el país</strong><br>Recibí tu prenda en la puerta de tu casa.</p>
+        </div>
+
+        <div class="item-beneficio">
+            <svg class="icono-beneficio-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                </path>
+            </svg>
+            <p><strong>100% Hecho a Mano</strong><br>Tejido cuidadosamente prenda por prenda.</p>
+        </div>
+
+        <div class="item-beneficio">
+            <svg class="icono-beneficio-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+            <p><strong>Pagos Seguros</strong><br>Transferencia y tarjetas de crédito/débito.</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         5. MODAL DETALLE DE PRODUCTO
+         ========================================== -->
+    <div class="modal-producto-overlay" id="modal-producto-overlay">
+        <div class="modal-producto-contenedor" role="dialog" aria-modal="true">
+            <button class="modal-cerrar" id="btn-cerrar-modal" aria-label="Cerrar ventana">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Galería de fotos izquierda -->
+            <div class="galeria-producto">
+                <div class="miniaturas-lista" id="modal-miniaturas">
+                    <!-- Inyectado dinámicamente -->
+                </div>
+                <div class="imagen-principal-contenedor">
+                    <img id="modal-foto-principal" src="" alt="Foto principal del producto">
+                </div>
+            </div>
+
+            <!-- Panel de información y compra derecha -->
+            <div class="info-compra-producto">
+                <h2 class="modal-titulo-producto" id="modal-nombre">Nombre del Producto</h2>
+
+                <div class="bloque-precio">
+                    <div class="modal-precio" id="modal-precio">$0</div>
+                </div>
+
+                <div class="bloque-stock">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span id="modal-stock">Stock disponible</span>
+                </div>
+
+                <ul class="detalles-especificaciones" id="modal-especificaciones">
+                    <!-- Inyectado dinámicamente -->
+                </ul>
+
+                <p class="modal-descripcion" id="modal-descripcion" style="white-space: pre-line;">Descripción del producto...</p>
+
+                <!-- Selector de Cantidad -->
+                <div class="control-cantidad-contenedor">
+                    <label for="modal-input-cantidad">Cantidad:</label>
+                    <div class="selector-cantidad">
+                        <button type="button" class="btn-cantidad" id="btn-menos-cant" aria-label="Disminuir cantidad">-</button>
+                        <input type="text" id="modal-input-cantidad" class="input-cantidad" value="1" readonly>
+                        <button type="button" class="btn-cantidad" id="btn-mas-cant" aria-label="Aumentar cantidad">+</button>
+                    </div>
+                </div>
+
+                <!-- Botones de compra -->
+                <div class="acciones-compra">
+                    <button type="button" class="btn-comprar-ahora" id="btn-comprar-ahora">Comprar ahora</button>
+                    <button type="button" class="btn-agregar-carrito-modal" id="btn-modal-agregar-carrito">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificación -->
+    <div class="notificacion-toast" id="toast-carrito">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-mensaje">¡Producto añadido al carrito!</span>
+    </div>
+
+    <script src="checkout.js"></script>
+    <!-- Script para Búsqueda, Favoritos, Carrito y Modal Mercado Libre -->
+    <script>
+        // Datos completos de los productos para el modal
+        const PRODUCTOS_DATA = {
+            'ruana-abrazo': {
+                nombre: 'RUANA ABRAZO',
+                precio: '$20.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'ruana-abrazo-portada.jpg',
+                    'ruana-abrazo-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
+                    { label: 'Talle', valor: 'Único' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Una prenda cómoda, versátil y perfecta para acompañarte en cualquier momento.\nCon ese toque artesanal que la hace única.'
+            },
+            'cardigan-abrazo': {
+                nombre: 'CÁRDIGAN ABRAZO',
+                precio: '$25.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'cardigan-abrazo-portada.jpg',
+                    'cardigan-abrazo-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
+                    { label: 'Talle', valor: 'Personalizado' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Es un diseño cómodo, suave y pensado para usar todos los días, de esos que no te querés sacar.'
+            },
+            'chaleco-abrazo': {
+                nombre: 'CHALECO ABRAZO',
+                precio: '$15.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'chaleco-abrazo-portada.jpg',
+                    'chaleco-abrazo-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Lana con brillo papayta grosor intermedio' },
+                    { label: 'Talle', valor: 'Personalizado' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Este chaleco lo pensé para usar sin vueltas: con jean, con algo más arreglado o simplemente para estar cómoda y linda al mismo tiempo.\nEs liviano y super adaptable… de esos que terminan siendo un básico sin darte cuenta.'
+            },
+            'bufanda-capucha-abrazo': {
+                nombre: 'BUFANDA CON CAPUCHA ABRAZO',
+                precio: '$12.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'bufanda-capucha-abrazo-portada.jpg',
+                    'bufanda-capucha-abrazo.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Lana nevilan' },
+                    { label: 'Talle', valor: 'Personalizado' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Hay tejidos que llegan para quedarse en el día a día.\nEsta bufanda con capucha está pensada para eso: para abrigarte sin complicaciones, para salir rápido y sentirte cómoda al mismo tiempo.\nEs práctica, versátil y tiene ese toque especial de lo hecho a mano que transforma algo simple en único.\nOjalá la disfrutes tanto como yo disfruté crearla.'
+            },
+            'poncho-abrazo': {
+                nombre: 'PONCHO ABRAZO',
+                precio: '$20.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'poncho-abrazo-portada.jpg',
+                    'poncho-abrazo-detalle.jgp'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Lana nevilan o cualquier lana que tengan en grosor intermedio (recomiendo lana con porcentaje de acrílico y lana porque es más calentita y tiene mejor caída que la lana totalmente acrílica)' },
+                    { label: 'Talle', valor: 'Personalizado' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Este poncho nació granny por granny, entre ideas, pruebas y muchas ganas de crear algo lindo y abrigado para este invierno.\nVamos a tejerlo juntas paso a paso, de manera simple y acompañada, para que puedas disfrutar el proceso y ver cómo va tomando forma con tus propias manos.\nEspero que disfrutes muchísimo este proyecto tanto como disfruté creándolo.'
+            },
+            'chaleco-suave': {
+                nombre: 'CHALECO ABRAZO SUAVE',
+                precio: '$15.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'chaleco-suave-portada.jpg',
+                    'chaleco-suave-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Lana pansy de L.H.O (260 grs)' },
+                    { label: 'Talle', valor: 'Único' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Es un chaleco cómodo, amplio y para utilizar en cualquier momento del día.'
+            },
+            'cardigan-calido': {
+                nombre: 'CÁRDIGAN ABRAZO CÁLIDO',
+                precio: '$20.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'cardigan-calido-portada.jpg',
+                    'cardigan-calido-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Profano de L.H.O' },
+                    { label: 'Talle', valor: 'Personalizado' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Es un cárdigan cómodo, versátil y pensado para acompañarte en esos días en los que queremos sentirnos abrigadas y lindas.'
+            }
+        };
+
+        // Elementos del Modal
+        const modalOverlay = document.getElementById('modal-producto-overlay');
+        const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+        const modalFotoPrincipal = document.getElementById('modal-foto-principal');
+        const modalMiniaturas = document.getElementById('modal-miniaturas');
+        const modalNombre = document.getElementById('modal-nombre');
+        const modalPrecio = document.getElementById('modal-precio');
+        const modalStock = document.getElementById('modal-stock');
+        const modalEspecificaciones = document.getElementById('modal-especificaciones');
+        const modalDescripcion = document.getElementById('modal-descripcion');
+        const inputCantidad = document.getElementById('modal-input-cantidad');
+        const btnMenosCant = document.getElementById('btn-menos-cant');
+        const btnMasCant = document.getElementById('btn-mas-cant');
+        const btnComprarAhora = document.getElementById('btn-comprar-ahora');
+        const btnModalAgregarCarrito = document.getElementById('btn-modal-agregar-carrito');
+        const toastCarrito = document.getElementById('toast-carrito');
+        const toastMensaje = document.getElementById('toast-mensaje');
+        const contadorCarrito = document.querySelector('.contador-rojo');
+
+        let cantidadEnCarrito = 0;
+        let productoActualSeleccionado = null;
+        let productoActualIdSeleccionado = null;
+
+        // Función para mostrar Toast de notificación
+        function mostrarToast(mensaje) {
+            toastMensaje.textContent = mensaje;
+            toastCarrito.classList.add('activo');
+            setTimeout(() => {
+                toastCarrito.classList.remove('activo');
+            }, 2500);
+        }
+
+        // Función para abrir modal con la información del producto
+        function abrirModalProducto(idProducto) {
+            const data = PRODUCTOS_DATA[idProducto];
+            if (!data) return;
+
+            productoActualSeleccionado = data;
+            productoActualIdSeleccionado = idProducto;
+            inputCantidad.value = 1;
+
+            modalNombre.textContent = data.nombre;
+            modalPrecio.textContent = data.precio;
+            modalStock.textContent = data.stock;
+            modalDescripcion.textContent = data.descripcion;
+
+            // Renderizar especificaciones
+            modalEspecificaciones.innerHTML = data.especificaciones.map(spec => 
+                `<li><strong>${spec.label}:</strong> ${spec.valor}</li>`
+            ).join('');
+
+            // Configurar fotos y miniaturas
+            modalFotoPrincipal.src = data.fotos[0];
+            modalFotoPrincipal.onerror = () => { modalFotoPrincipal.src = data.fotos[0]; };
+
+            modalMiniaturas.innerHTML = '';
+            data.fotos.forEach((foto, index) => {
+                const item = document.createElement('div');
+                item.className = `miniatura-item ${index === 0 ? 'activo' : ''}`;
+                
+                const img = document.createElement('img');
+                img.src = foto;
+                img.alt = `${data.nombre} foto ${index + 1}`;
+                img.onerror = function() {
+                    this.src = data.fotos[0]; // fallback a la foto principal si aún no existe
+                };
+
+                item.appendChild(img);
+
+                item.addEventListener('mouseenter', () => {
+                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
+                    item.classList.add('activo');
+                    modalFotoPrincipal.style.opacity = '0.5';
+                    setTimeout(() => {
+                        modalFotoPrincipal.src = img.src;
+                        modalFotoPrincipal.style.opacity = '1';
+                    }, 100);
+                });
+
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
+                    item.classList.add('activo');
+                    modalFotoPrincipal.src = img.src;
+                });
+
+                modalMiniaturas.appendChild(item);
+            });
+
+            modalOverlay.classList.add('activo');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Función para cerrar modal
+        function cerrarModal() {
+            modalOverlay.classList.remove('activo');
+            document.body.style.overflow = 'auto';
+        }
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) cerrarModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('activo')) cerrarModal();
+        });
+
+        // Controles de cantidad en modal
+        btnMenosCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            if (val > 1) inputCantidad.value = val - 1;
+        });
+
+        btnMasCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            inputCantidad.value = val + 1;
+        });
+
+        // Eventos para abrir modal al hacer clic en fotos o títulos de la grilla
+        document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
+            const id = tarjeta.getAttribute('data-id');
+            const enlaces = tarjeta.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img');
+
+            enlaces.forEach(enlace => {
+                enlace.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    abrirModalProducto(id);
+                });
+            });
+        });
+
+        // Botón "Agregar al carrito" dentro del Modal
+        btnModalAgregarCarrito.addEventListener('click', () => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.agregarAlCarrito) {
+                window.agregarAlCarrito(productoActualIdSeleccionado, productoActualSeleccionado.nombre, cant);
+            }
+            cerrarModal();
+        });
+
+        // Botón "Comprar ahora" dentro del Modal
+        btnComprarAhora.addEventListener('click', () => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.iniciarCompraProducto) {
+                window.iniciarCompraProducto(productoActualIdSeleccionado, productoActualSeleccionado.nombre, cant);
+            }
+        });
+
+        // Botones de agregar rápido en la grilla
+        const botonesAgregar = document.querySelectorAll('.boton-agregar-rapido');
+        botonesAgregar.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tarjeta = button.closest('.tarjeta-producto');
+                const id = tarjeta.getAttribute('data-id');
+                const nombre = tarjeta.querySelector('.nombre-producto').textContent.trim();
+                if (window.agregarAlCarrito) {
+                    window.agregarAlCarrito(id, nombre, 1);
+                }
+            });
+        });
+
+        // Funcionalidad de favoritos (corazones)
+        const botonesFavorito = document.querySelectorAll('.boton-favorito');
+        botonesFavorito.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                button.classList.toggle('activo');
+            });
+        });
+
+        // Buscador desplegable y filtro
+        const botonLupa = document.getElementById('boton-lupa');
+        const cajaBusqueda = document.getElementById('caja-busqueda');
+        const inputBuscar = document.getElementById('input-buscar');
+
+        botonLupa.addEventListener('click', (e) => {
+            e.stopPropagation();
+            cajaBusqueda.classList.toggle('activo');
+            if (cajaBusqueda.classList.contains('activo')) {
+                inputBuscar.focus();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!cajaBusqueda.contains(e.target) && e.target !== botonLupa && !botonLupa.contains(e.target)) {
+                cajaBusqueda.classList.remove('activo');
+            }
+        });
+
+        inputBuscar.addEventListener('input', (e) => {
+            const textoBusqueda = e.target.value.toLowerCase().trim();
+            const tarjetas = document.querySelectorAll('.tarjeta-producto');
+
+            tarjetas.forEach(tarjeta => {
+                const nombreProducto = tarjeta.querySelector('.nombre-producto').textContent.toLowerCase();
+                if (nombreProducto.includes(textoBusqueda)) {
+                    tarjeta.style.display = 'block';
+                } else {
+                    tarjeta.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

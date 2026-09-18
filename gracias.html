@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por tu compra! - Puro Crochet</title>
+
+    <!-- Fuentes Google Fonts (Montserrat y Alex Brush) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Estilos generales -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .pagina-gracias {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: #faf8f5;
+        }
+
+        .tarjeta-confirmacion {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0ede9;
+            max-width: 600px;
+            width: 100%;
+            padding: 45px 35px;
+            text-align: center;
+        }
+
+        .icono-estado {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icono-estado.aprobado {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .icono-estado.pendiente {
+            background: #fff8e1;
+            color: #f57f17;
+        }
+
+        .icono-estado.rechazado {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .tarjeta-confirmacion h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 12px;
+        }
+
+        .tarjeta-confirmacion p.subtitulo {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .caja-descargas {
+            background: #faf9f7;
+            border: 1px solid #ede8e1;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .caja-descargas h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-descarga {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: #fff;
+            border: 1px solid #e2ded8;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .item-descarga:last-child {
+            margin-bottom: 0;
+        }
+
+        .item-descarga-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-descarga-info strong {
+            font-size: 14px;
+            color: #222;
+        }
+
+        .btn-descargar-pdf {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #009ee3;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-descargar-pdf:hover {
+            background: #0082ba;
+            transform: translateY(-1px);
+        }
+
+        .info-adicional {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.5;
+            margin-top: 15px;
+        }
+
+        .acciones-finales {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-volver-tienda {
+            display: inline-block;
+            background: #222;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-volver-tienda:hover {
+            background: #000;
+        }
+
+        .btn-contacto-ayuda {
+            display: inline-block;
+            background: transparent;
+            color: #444;
+            border: 1px solid #ccc;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-top-color: #009ee3;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER SIMPLE -->
+    <header class="barra-superior">
+        <a href="index.html" class="logo-marca">
+            <img src="logo.png" alt="Logo Tienda Crochet" class="imagen-logo">
+        </a>
+        <div class="menu-derecha">
+            <nav class="categorias">
+                <a href="index.html">Inicio</a>
+                <a href="Guias de tejido.html">Guías de tejido</a>
+                <a href="contacto.html">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pagina-gracias">
+        <div class="tarjeta-confirmacion" id="tarjeta-estado">
+            <div class="spinner" id="icono-spinner"></div>
+            <h1 id="titulo-estado">Verificando tu pago con Mercado Pago</h1>
+            <p class="subtitulo" id="mensaje-estado">Aguardá unos instantes mientras confirmamos los datos de la transacción…</p>
+
+            <div id="contenedor-descargas" style="display: none;"></div>
+
+            <div class="acciones-finales">
+                <a href="Guias de tejido.html" class="btn-volver-tienda">Seguir viendo guías</a>
+                <a href="contacto.html" class="btn-contacto-ayuda">¿Necesitás ayuda?</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const order = params.get('order') || params.get('external_reference') || '';
+        const paymentId = params.get('payment_id') || params.get('collection_id') || '';
+        const statusParam = params.get('status') || params.get('collection_status') || '';
+
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        async function verificarPago() {
+            attempts++;
+            const tituloEl = document.getElementById('titulo-estado');
+            const mensajeEl = document.getElementById('mensaje-estado');
+            const spinnerEl = document.getElementById('icono-spinner');
+            const descargasEl = document.getElementById('contenedor-descargas');
+
+            try {
+                const query = new URLSearchParams({
+                    order: order,
+                    payment_id: paymentId,
+                    status: statusParam
+                });
+
+                const res = await fetch(`/api/payment-status?${query.toString()}`);
+                const data = await res.json();
+
+                if (data.status === 'approved') {
+                    // Pago Aprobado
+                    if (spinnerEl) spinnerEl.remove();
+
+                    // Limpiar carrito local
+                    try {
+                        localStorage.removeItem('puro_crochet_cart_v1');
+                    } catch (e) {}
+
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'icono-estado aprobado';
+                    iconDiv.innerHTML = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    document.getElementById('tarjeta-estado').prepend(iconDiv);
+
+                    tituloEl.textContent = '¡Pago aprobado con éxito!';
+                    mensajeEl.innerHTML = `Tu compra fue procesada correctamente por Mercado Pago.<br>Ya podés descargar tus patrones PDF aquí abajo.` + 
+                        (data.payerEmail ? `<br><small style="color:#888;">Enviamos también una copia a <strong>${data.payerEmail}</strong></small>` : '');
+
+                    const items = data.items && data.items.length > 0 ? data.items : [
+                        { title: data.product || 'Guía de tejido', downloadUrl: data.downloadUrl || '#' }
+                    ];
+
+                    descargasEl.innerHTML = `
+                        <div class="caja-descargas">
+                            <h3>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Tus Patrones PDF Listos para Descargar:
+                            </h3>
+                            ${items.map(item => `
+                                <div class="item-descarga">
+                                    <div class="item-descarga-info">
+                                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e53935" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                        <strong>${item.title}</strong>
+                                    </div>
+                                    <a href="${item.downloadUrl}" class="btn-descargar-pdf" download target="_blank">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        Descargar PDF
+                                    </a>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <p class="info-adicional">💡 Tip: Te recomendamos guardar los archivos PDF en tu computadora o celular para tenerlos siempre disponibles.</p>
+                    `;
+                    descargasEl.style.display = 'block';
+
+                } else if (['pending', 'in_process', 'waiting'].includes(data.status)) {
+                    if (attempts < maxAttempts) {
+                        mensajeEl.textContent = 'Mercado Pago está procesando tu pago. Esta página se actualizará automáticamente en unos segundos…';
+                        setTimeout(verificarPago, 4000);
+                    } else {
+                        if (spinnerEl) spinnerEl.remove();
+                        const iconDiv = document.createElement('div');
+                        iconDiv.className = 'icono-estado pendiente';
+                        iconDiv.innerHTML = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>`;
+                        document.getElementById('tarjeta-estado').prepend(iconDiv);
+
+                        tituloEl.textContent = 'Pago en proceso';
+                        mensajeEl.innerHTML = 'El pago aún está pendiente de acreditación (por ejemplo, pago en efectivo o revisión de tarjeta). En cuanto se confirme recibirás el patrón en tu email.';
+                    }
+                } else {
+                    // Pago rechazado o cancelado
+                    if (spinnerEl) spinnerEl.remove();
+                    const iconDiv = document.createElement('div');
+                    iconDiv.className = 'icono-estado rechazado';
+                    iconDiv.innerHTML = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>`;
+                    document.getElementById('tarjeta-estado').prepend(iconDiv);
+
+                    tituloEl.textContent = 'El pago no fue completado';
+                    mensajeEl.innerHTML = 'El pago no se pudo procesar o fue cancelado. Podés intentar nuevamente o comunicarte con nosotros si tenés alguna duda.';
+                }
+            } catch (err) {
+                console.error('Error al verificar estado:', err);
+                if (attempts < 3) {
+                    setTimeout(verificarPago, 3000);
+                } else {
+                    if (spinnerEl) spinnerEl.remove();
+                    tituloEl.textContent = '¡Gracias por tu visita!';
+                    mensajeEl.textContent = 'Si completaste el pago en Mercado Pago, recibirás los enlaces de descarga en tu correo electrónico en los próximos minutos.';
+                }
+            }
+        }
+
+        verificarPago();
+    </script>
+</body>
+
+</html>
