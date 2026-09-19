@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración – Puro Crochet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f4f0;
+      --bg2: #eee9e4;
+      --white: #ffffff;
+      --brown: #3c302a;
+      --brown-light: #5c4a42;
+      --beige: #d9d0c8;
+      --beige-dark: #b8ab9f;
+      --terracotta: #b97245;
+      --terracotta-light: #d4935f;
+      --green: #26714b;
+      --red: #c0392b;
+      --text: #2f2925;
+      --text-light: #746961;
+      --text-muted: #a0948c;
+      --shadow: 0 4px 20px rgba(58,40,29,.1);
+      --shadow-lg: 0 12px 40px rgba(58,40,29,.15);
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ───── LOGIN SCREEN ───── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #3c302a 0%, #5c4a42 40%, #8b6f5c 100%);
+    }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 52px 48px;
+      width: min(440px, calc(100vw - 32px));
+      box-shadow: 0 25px 80px rgba(0,0,0,.3);
+      text-align: center;
+    }
+
+    .login-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 24px;
+      border-radius: 50%;
+      border: 3px solid var(--beige);
+    }
+
+    .login-card h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: .5px;
+    }
+
+    .login-card p {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-top: 6px;
+      margin-bottom: 32px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .field input, .field select, .field textarea {
+      border: 1.5px solid var(--beige);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color .2s;
+      width: 100%;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--terracotta);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--brown);
+      color: var(--white);
+      width: 100%;
+    }
+
+    .btn-primary:hover { background: var(--brown-light); transform: translateY(-1px); }
+
+    .btn-accent {
+      background: var(--terracotta);
+      color: var(--white);
+    }
+
+    .btn-accent:hover { background: var(--terracotta-light); }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--beige-dark);
+      color: var(--brown);
+    }
+
+    .btn-outline:hover { background: var(--bg2); }
+
+    .btn-danger {
+      background: var(--red);
+      color: var(--white);
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+
+    .btn-danger:hover { opacity: .85; }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 12px;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .btn-green:hover { opacity: .85; }
+
+    #login-error {
+      color: var(--red);
+      font-size: 13px;
+      min-height: 20px;
+      margin-top: -8px;
+      margin-bottom: 12px;
+    }
+
+    /* ───── DASHBOARD ───── */
+    #dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .admin-header {
+      background: var(--brown);
+      color: var(--white);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.2);
+    }
+
+    .admin-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .admin-header img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.2);
+    }
+
+    .admin-header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: .4px;
+    }
+
+    .admin-header h1 span {
+      font-weight: 400;
+      opacity: .6;
+      font-size: 13px;
+    }
+
+    .admin-header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Layout */
+    .admin-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      min-height: calc(100vh - 64px);
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+      background: var(--white);
+      border-right: 1px solid var(--beige);
+      padding: 24px 0;
+    }
+
+    .sidebar-section {
+      padding: 8px 20px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all .15s;
+    }
+
+    .sidebar-item:hover { background: var(--bg); color: var(--text); }
+
+    .sidebar-item.active {
+      background: #fdf8f5;
+      color: var(--terracotta);
+      border-left-color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .sidebar-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .sidebar-count {
+      margin-left: auto;
+      background: var(--bg2);
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+
+    /* Main content */
+    .admin-main {
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    /* Tabs */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title svg { width: 20px; height: 20px; color: var(--terracotta); }
+
+    /* Stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-card .stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--text-muted);
+    }
+
+    .stat-card .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--brown);
+    }
+
+    .stat-card.accent .stat-value { color: var(--terracotta); }
+    .stat-card.green .stat-value { color: var(--green); }
+
+    /* Product list */
+    .product-list { display: grid; gap: 12px; }
+
+    .product-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border: 1.5px solid var(--beige);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      transition: border-color .2s;
+    }
+
+    .product-item:hover { border-color: var(--beige-dark); }
+
+    .product-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: var(--bg2);
+      flex-shrink: 0;
+    }
+
+    .product-item-info { flex: 1; min-width: 0; }
+
+    .product-item-info .pi-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-item-info .pi-meta {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .badge-inicio { background: #e8f0fe; color: #2a56c6; }
+    .badge-guias { background: #fef3e2; color: #c16b00; }
+    .badge-gratis { background: #e8f5e9; color: var(--green); }
+    .badge-hidden { background: #f5f5f5; color: #888; }
+
+    .product-item-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Form grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .form-grid .full { grid-column: 1 / -1; }
+
+    .notice {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      margin-top: 16px;
+    }
+
+    .notice-success { background: #e8f5e9; color: var(--green); border: 1px solid #a5d6a7; }
+    .notice-error { background: #ffebee; color: var(--red); border: 1px solid #ef9a9a; }
+    .notice-info { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+
+    /* Seed section */
+    .seed-card {
+      background: linear-gradient(135deg, #fdf8f5, #f7f0ea);
+      border: 1.5px solid var(--beige);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .seed-card svg { width: 40px; height: 40px; color: var(--terracotta); flex-shrink: 0; }
+    .seed-card-text h3 { font-size: 15px; font-weight: 700; color: var(--brown); }
+    .seed-card-text p { font-size: 13px; color: var(--text-light); margin-top: 4px; line-height: 1.5; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state svg { width: 48px; height: 48px; margin-bottom: 16px; opacity: .4; }
+    .empty-state h3 { font-size: 15px; font-weight: 600; color: var(--text-light); }
+    .empty-state p { font-size: 13px; margin-top: 6px; }
+
+    /* Divider */
+    .divider { height: 1px; background: var(--beige); margin: 24px 0; }
+
+    /* Loading */
+    .loading-dots { display: inline-flex; gap: 4px; align-items: center; }
+    .loading-dots span { width: 6px; height: 6px; background: currentColor; border-radius: 50%; animation: blink 1.2s infinite; }
+    .loading-dots span:nth-child(2) { animation-delay: .2s; }
+    .loading-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+
+    @media (max-width: 720px) {
+      .admin-body { grid-template-columns: 1fr; }
+      .admin-sidebar { display: none; }
+      .admin-main { padding: 20px 16px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ──────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="logo.png" alt="Puro Crochet" class="login-logo" onerror="this.style.display='none'">
+    <h1>Panel de Administración</h1>
+    <p>Puro Crochet · Acceso restringido</p>
+
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="login-password" placeholder="Ingresá la contraseña" autocomplete="current-password">
+    </div>
+    <p id="login-error"></p>
+    <button class="btn btn-primary" id="btn-login">
+      Entrar al panel
+    </button>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ─────────────────────────────────────────────────────────── -->
+<div id="dashboard">
+
+  <header class="admin-header">
+    <div class="admin-header-brand">
+      <img src="logo.png" alt="logo" onerror="this.style.display='none'">
+      <h1>Panel Admin <span>/ Puro Crochet</span></h1>
+    </div>
+    <div class="admin-header-actions">
+      <a href="/" class="btn btn-outline btn-sm" target="_blank">Ver tienda ↗</a>
+      <button class="btn btn-outline btn-sm" id="btn-logout">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <div class="admin-body">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <p class="sidebar-section">Productos</p>
+      <div class="sidebar-item active" data-tab="todos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Todos
+        <span class="sidebar-count" id="count-todos">–</span>
+      </div>
+      <div class="sidebar-item" data-tab="inicio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Inicio
+        <span class="sidebar-count" id="count-inicio">–</span>
+      </div>
+      <div class="sidebar-item" data-tab="guias">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Guías de Tejido
+        <span class="sidebar-count" id="count-guias">–</span>
+      </div>
+      <div class="sidebar-item" data-tab="gratis">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        Patrones Gratis
+        <span class="sidebar-count" id="count-gratis">–</span>
+      </div>
+
+      <p class="sidebar-section">Acciones</p>
+      <div class="sidebar-item" data-tab="nuevo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        Agregar patrón
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="admin-main">
+
+      <!-- Tab: Todos los productos -->
+      <div class="tab-panel active" id="tab-todos">
+        <div class="seed-card" id="seed-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22V12M12 12C12 12 9 9 5 9C3.5 9 2 10 2 10S3 15 7 17C9.5 18 12 12 12 12Z"/>
+            <path d="M12 12C12 12 15 9 19 9C20.5 9 22 10 22 10S21 15 17 17C14.5 18 12 12 12 12Z"/>
+          </svg>
+          <div class="seed-card-text">
+            <h3>🌱 Importar productos existentes a Supabase</h3>
+            <p>Si la tabla está vacía, importá todos los patrones actuales de la tienda a la base de datos con un clic. Los nuevos productos que agregues desde acá aparecerán automáticamente en la tienda.</p>
+          </div>
+          <button class="btn btn-accent" id="btn-seed" style="flex-shrink:0; min-width:140px;">
+            Sincronizar
+          </button>
+        </div>
+        <div id="seed-result" style="display:none;"></div>
+
+        <div class="stats-row" id="stats-row">
+          <div class="stat-card"><div class="stat-label">Total</div><div class="stat-value" id="s-total">–</div></div>
+          <div class="stat-card accent"><div class="stat-label">Inicio</div><div class="stat-value" id="s-inicio">–</div></div>
+          <div class="stat-card"><div class="stat-label">Guías</div><div class="stat-value" id="s-guias">–</div></div>
+          <div class="stat-card green"><div class="stat-label">Gratis</div><div class="stat-value" id="s-gratis">–</div></div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            Catálogo
+          </h2>
+          <div class="product-list" id="product-list">
+            <div class="empty-state">
+              <div class="loading-dots"><span></span><span></span><span></span></div>
+              <p style="margin-top:12px;">Cargando productos...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs: filtrados por sección (usan el mismo renderizado) -->
+      <div class="tab-panel" id="tab-inicio">
+        <div class="card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            Productos – Inicio
+          </h2>
+          <div class="product-list" id="product-list-inicio"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-guias">
+        <div class="card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Guías de Tejido
+          </h2>
+          <div class="product-list" id="product-list-guias"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-gratis">
+        <div class="card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/></svg>
+            Patrones Gratis
+          </h2>
+          <div class="product-list" id="product-list-gratis"></div>
+        </div>
+      </div>
+
+      <!-- Tab: Agregar nuevo patrón -->
+      <div class="tab-panel" id="tab-nuevo">
+        <div class="card">
+          <h2 class="card-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Agregar nuevo patrón
+          </h2>
+
+          <form id="nuevo-form" autocomplete="off">
+            <div class="form-grid">
+              <div class="field full">
+                <label>Nombre del patrón *</label>
+                <input type="text" id="n-title" placeholder="Ej: Patrón Cárdigan Primavera" required>
+              </div>
+
+              <div class="field">
+                <label>ID único *</label>
+                <input type="text" id="n-id" placeholder="Ej: cardigan-primavera" required pattern="[a-z0-9\-]+" title="Solo letras minúsculas, números y guiones">
+              </div>
+
+              <div class="field">
+                <label>Precio (en pesos)</label>
+                <input type="number" id="n-price" min="0" step="1" value="0" required>
+              </div>
+
+              <div class="field">
+                <label>Sección *</label>
+                <select id="n-section">
+                  <option value="inicio">Inicio (Colección)</option>
+                  <option value="guias">Guías de Tejido</option>
+                  <option value="gratis">Patrones Gratis</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Archivo PDF</label>
+                <input type="file" id="n-file" accept="application/pdf,.pdf">
+              </div>
+
+              <div class="field full">
+                <label>Imagen de portada</label>
+                <input type="file" id="n-img-portada" accept="image/jpeg,image/png,image/webp,image/gif">
+              </div>
+
+              <div class="field full">
+                <label>Imagen de detalle (opcional)</label>
+                <input type="file" id="n-img-detalle" accept="image/jpeg,image/png,image/webp,image/gif">
+              </div>
+
+              <div class="field full">
+                <label>Descripción (opcional)</label>
+                <textarea id="n-description" placeholder="Contá brevemente de qué se trata el patrón."></textarea>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <button type="submit" class="btn btn-primary" style="min-width:200px; margin-top:4px;">
+              Guardar patrón en Supabase
+            </button>
+          </form>
+
+          <div id="nuevo-notice" style="display:none; margin-top:16px;"></div>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- end admin-body -->
+</div><!-- end dashboard -->
+
+<script>
+  const TOKEN_KEY = 'purocrochet_admin_token';
+  let _token = sessionStorage.getItem(TOKEN_KEY);
+  let _allProducts = [];
+
+  // ── Auth helpers ───────────────────────────────────────────────────────────
+  async function login(password) {
+    const r = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password })
+    });
+    const d = await r.json();
+    if (r.ok) {
+      _token = d.token;
+      sessionStorage.setItem(TOKEN_KEY, _token);
+      return true;
+    }
+    throw new Error(d.error || 'Error de conexión');
+  }
+
+  function authHeaders() {
+    return { 'Content-Type':'application/json', 'Authorization': `Bearer ${_token}` };
+  }
+
+  // ── UI State ───────────────────────────────────────────────────────────────
+  function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadProducts();
+  }
+
+  function showLogin() {
+    _token = null;
+    sessionStorage.removeItem(TOKEN_KEY);
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+  }
+
+  // ── Tab navigation ─────────────────────────────────────────────────────────
+  document.querySelectorAll('.sidebar-item[data-tab]').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('tab-' + item.dataset.tab).classList.add('active');
+      if (['inicio','guias','gratis'].includes(item.dataset.tab)) {
+        renderSection(item.dataset.tab);
+      }
+    });
+  });
+
+  // ── Fetch products ─────────────────────────────────────────────────────────
+  async function loadProducts() {
+    try {
+      const r = await fetch('/api/admin/products', { headers: authHeaders() });
+      if (r.status === 401) { showLogin(); return; }
+      _allProducts = await r.json();
+      renderAll();
+    } catch(e) {
+      document.getElementById('product-list').innerHTML =
+        `<div class="notice notice-error">Error cargando productos: ${e.message}</div>`;
+    }
+  }
+
+  function renderAll() {
+    const todos = _allProducts;
+    const inicio = todos.filter(p => p.section === 'inicio');
+    const guias = todos.filter(p => p.section === 'guias');
+    const gratis = todos.filter(p => p.section === 'gratis');
+
+    // Stats
+    document.getElementById('s-total').textContent = todos.length;
+    document.getElementById('s-inicio').textContent = inicio.length;
+    document.getElementById('s-guias').textContent = guias.length;
+    document.getElementById('s-gratis').textContent = gratis.length;
+    document.getElementById('count-todos').textContent = todos.length;
+    document.getElementById('count-inicio').textContent = inicio.length;
+    document.getElementById('count-guias').textContent = guias.length;
+    document.getElementById('count-gratis').textContent = gratis.length;
+
+    renderProductList('product-list', todos);
+  }
+
+  function renderSection(section) {
+    const items = _allProducts.filter(p => p.section === section);
+    renderProductList('product-list-' + section, items);
+  }
+
+  function renderProductList(containerId, products) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    if (!products.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8"/></svg>
+          <h3>Sin productos</h3>
+          <p>Usá "Sincronizar" para importar o "Agregar patrón" para crear uno nuevo.</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = '';
+    for (const p of products) {
+      const priceStr = p.price === 0 ? '<span style="color:var(--green); font-weight:700;">GRATIS</span>' :
+        `<strong>$${Number(p.price).toLocaleString('es-AR')}</strong>`;
+      const sectionBadge = { inicio: 'badge-inicio', guias: 'badge-guias', gratis: 'badge-gratis' }[p.section] || '';
+      const visibleBadge = p.visible === false ? '<span class="badge badge-hidden">Oculto</span>' : '';
+
+      const item = document.createElement('div');
+      item.className = 'product-item';
+      item.dataset.id = p.id;
+      item.innerHTML = `
+        <img src="${p.image_portada || ''}" alt="" onerror="this.src=''; this.style.background='#e8e0d8'">
+        <div class="product-item-info">
+          <div class="pi-title">${p.title}</div>
+          <div class="pi-meta">
+            ${priceStr}
+            <span class="badge ${sectionBadge}">${p.section}</span>
+            ${visibleBadge}
+            <span style="color:var(--text-muted); font-size:11px;">ID: ${p.id}</span>
+          </div>
+        </div>
+        <div class="product-item-actions">
+          <button class="btn btn-outline btn-sm btn-toggle-visible" title="${p.visible !== false ? 'Ocultar' : 'Mostrar'}">
+            ${p.visible !== false ? '👁 Ocultar' : '👁 Mostrar'}
+          </button>
+          <button class="btn btn-danger btn-delete">Eliminar</button>
+        </div>`;
+
+      item.querySelector('.btn-delete').addEventListener('click', async () => {
+        if (!confirm(`¿Eliminar "${p.title}"? Esta acción no se puede deshacer.`)) return;
+        try {
+          const r = await fetch(`/api/admin/products/${encodeURIComponent(p.id)}`, { method: 'DELETE', headers: authHeaders() });
+          if (!r.ok) throw new Error((await r.json()).error);
+          await loadProducts();
+        } catch(e) { alert('Error: ' + e.message); }
+      });
+
+      item.querySelector('.btn-toggle-visible').addEventListener('click', async () => {
+        try {
+          const r = await fetch(`/api/admin/products/${encodeURIComponent(p.id)}`, {
+            method: 'PATCH',
+            headers: authHeaders(),
+            body: JSON.stringify({ visible: !p.visible })
+          });
+          if (!r.ok) throw new Error((await r.json()).error);
+          await loadProducts();
+        } catch(e) { alert('Error: ' + e.message); }
+      });
+
+      container.appendChild(item);
+    }
+  }
+
+  // ── Seed ────────────────────────────────────────────────────────────────────
+  document.getElementById('btn-seed').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-seed');
+    const resultDiv = document.getElementById('seed-result');
+    btn.textContent = 'Importando...';
+    btn.disabled = true;
+    resultDiv.style.display = 'none';
+    try {
+      const r = await fetch('/api/admin/seed', { method: 'POST', headers: authHeaders() });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error);
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'notice notice-success';
+      resultDiv.textContent = `✅ ${d.seeded} productos importados${d.skipped ? `, ${d.skipped} ya existían` : ''}.${d.errors?.length ? ' Errores: ' + d.errors.join(', ') : ''}`;
+      await loadProducts();
+    } catch(e) {
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'notice notice-error';
+      resultDiv.textContent = '❌ Error: ' + e.message;
+    } finally {
+      btn.textContent = 'Sincronizar';
+      btn.disabled = false;
+    }
+  });
+
+  // ── Add product form ────────────────────────────────────────────────────────
+  document.getElementById('nuevo-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const notice = document.getElementById('nuevo-notice');
+    notice.style.display = 'none';
+
+    const data = {
+      id: document.getElementById('n-id').value.trim().toLowerCase().replace(/\s+/g,'-'),
+      title: document.getElementById('n-title').value.trim(),
+      price: Number(document.getElementById('n-price').value) || 0,
+      section: document.getElementById('n-section').value,
+      description: document.getElementById('n-description').value.trim() || null,
+      visible: true
+    };
+
+    if (!data.id || !data.title) {
+      notice.style.display = 'block';
+      notice.className = 'notice notice-error';
+      notice.textContent = 'Completá el nombre y el ID.';
+      return;
+    }
+
+    const submitBtn = e.target.querySelector('[type=submit]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Guardando...';
+
+    try {
+      async function upload(file, kind) {
+        if (!file) return null;
+        const form = new FormData();
+        form.append('file', file);
+        form.append('kind', kind);
+        const response = await fetch('/api/admin/uploads', { method: 'POST', headers: { Authorization: `Bearer ${_token}` }, body: form });
+        const uploaded = await response.json();
+        if (!response.ok) throw new Error(uploaded.error || 'No se pudo subir el archivo');
+        return uploaded.path;
+      }
+      submitBtn.textContent = 'Subiendo archivos...';
+      data.file = await upload(document.getElementById('n-file').files[0], 'pdf');
+      data.image_portada = await upload(document.getElementById('n-img-portada').files[0], 'image');
+      data.image_detalle = await upload(document.getElementById('n-img-detalle').files[0], 'image');
+      submitBtn.textContent = 'Guardando...';
+      const r = await fetch('/api/admin/products', {
+        method: 'POST',
+        headers: authHeaders(),
+        body: JSON.stringify(data)
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || JSON.stringify(d));
+
+      notice.style.display = 'block';
+      notice.className = 'notice notice-success';
+      notice.textContent = `✅ "${data.title}" guardado en Supabase. Ya aparece en la sección "${data.section}".`;
+      e.target.reset();
+      document.getElementById('n-price').value = '0';
+      await loadProducts();
+    } catch(e) {
+      notice.style.display = 'block';
+      notice.className = 'notice notice-error';
+      notice.textContent = '❌ Error: ' + e.message;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Guardar patrón en Supabase';
+    }
+  });
+
+  // Auto-generate ID from title
+  document.getElementById('n-title').addEventListener('input', () => {
+    const idField = document.getElementById('n-id');
+    if (idField._touched) return;
+    idField.value = document.getElementById('n-title').value
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9\s-]/g,'')
+      .trim().replace(/\s+/g,'-');
+  });
+  document.getElementById('n-id').addEventListener('input', () => { document.getElementById('n-id')._touched = true; });
+
+  // ── Login form ──────────────────────────────────────────────────────────────
+  document.getElementById('btn-login').addEventListener('click', async () => {
+    const pw = document.getElementById('login-password').value;
+    const errEl = document.getElementById('login-error');
+    const btn = document.getElementById('btn-login');
+    errEl.textContent = '';
+    btn.textContent = 'Verificando...';
+    btn.disabled = true;
+    try {
+      await login(pw);
+      showDashboard();
+    } catch(e) {
+      errEl.textContent = e.message;
+    } finally {
+      btn.textContent = 'Entrar al panel';
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById('login-password').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('btn-login').click();
+  });
+
+  document.getElementById('btn-logout').addEventListener('click', showLogin);
+
+  // ── Init: check if already logged in ───────────────────────────────────────
+  if (_token) {
+    showDashboard();
+  }
+</script>
+</body>
+</html>

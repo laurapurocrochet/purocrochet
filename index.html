@@ -50,7 +50,7 @@
     </style>
 </head>
 
-<body>
+<body data-products-section="inicio">
 
     <!-- ==========================================
          1. HEADER Y NAVEGACIÓN
@@ -112,8 +112,10 @@
     <main class="seccion-coleccion">
         <h2 class="titulo-coleccion">COLECCIÓN ABRAZO</h2>
 
-        <div class="grilla-productos">
+        <div class="grilla-productos" data-products-grid>
 
+            <!-- 1. Ruana Abrazo -->
+            <!-- 1. Ruana Abrazo -->
             <!-- 1. Ruana Abrazo -->
             <article class="tarjeta-producto" data-id="ruana-abrazo">
                 <div class="contenedor-imagen">
@@ -130,7 +132,7 @@
                 </div>
                 <div class="info-producto">
                     <div class="detalles-texto">
-                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">RUANA ABRAZO</a></h3>
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN RUANA ABRAZO</a></h3>
                         <p class="precio-producto">$20.000</p>
                     </div>
                     <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
@@ -304,7 +306,7 @@
             <article class="tarjeta-producto" data-id="cardigan-calido">
                 <div class="contenedor-imagen">
                     <a href="javascript:void(0)" class="enlace-detalle-producto">
-                        <img src="cardigan-calido-portada.jpg" alt="Cárdigan Abrazo Cálido">
+                        <img src="cardigan-calido-portada.jpg" alt="Patrón Cárdigan Abrazo Cálido">
                     </a>
                     <button class="boton-favorito" aria-label="Añadir a favoritos">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -316,7 +318,7 @@
                 </div>
                 <div class="info-producto">
                     <div class="detalles-texto">
-                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">CÁRDIGAN ABRAZO CÁLIDO</a></h3>
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN CÁRDIGAN ABRAZO CÁLIDO</a></h3>
                         <p class="precio-producto">$20.000</p>
                     </div>
                     <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
@@ -331,6 +333,36 @@
                 </div>
             </article>
 
+            <!-- 8. Poncho Luz -->
+            <article class="tarjeta-producto" data-id="poncho-luz">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="poncho-luz-portada.jpg" alt="Patrón Poncho Luz">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path
+                                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN PONCHO LUZ</a></h3>
+                        <p class="precio-producto">$20.000</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
         </div>
     </main>
 
@@ -439,28 +471,9 @@
         <span id="toast-mensaje">¡Producto añadido al carrito!</span>
     </div>
 
+    <script src="cart.js"></script>
+    <script src="custom-products.js"></script>
     <script src="checkout.js"></script>
-    <!-- Script para Búsqueda, Favoritos, Carrito y Modal Mercado Libre -->
-    <script>
-        // Datos completos de los productos para el modal
-        const PRODUCTOS_DATA = {
-            'ruana-abrazo': {
-                nombre: 'RUANA ABRAZO',
-                precio: '$20.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'ruana-abrazo-portada.jpg',
-                    'ruana-abrazo-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
-                    { label: 'Talle', valor: 'Único' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Una prenda cómoda, versátil y perfecta para acompañarte en cualquier momento.\nCon ese toque artesanal que la hace única.'
-            },
-            'cardigan-abrazo': {
-                nombre: 'CÁRDIGAN ABRAZO',
                 precio: '$25.000',
                 stock: 'Stock disponible',
                 fotos: [
@@ -753,6 +766,74 @@
                 }
             });
         });
+    </script>
+
+    <!-- Carga dinámica de productos desde Supabase -->
+    <script>
+    (async function loadDynamicProducts() {
+      if (document.body.dataset.productsSection) return;
+      try {
+        const res = await fetch('/api/products?section=inicio');
+        if (!res.ok) return;
+        const products = await res.json();
+        if (!products || !products.length) return;
+
+        const grid = document.querySelector('.grilla-productos');
+        if (!grid) return;
+        const existingIds = new Set([...grid.querySelectorAll('[data-id]')].map(el => el.dataset.id));
+        const ICON_HEART = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+        const ICON_CART = `<svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><line x1="12" y1="10" x2="12" y2="16"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>`;
+
+        for (const p of products) {
+          if (existingIds.has(p.id)) continue;
+          const priceStr = p.price === 0 ? '$0 (GRATIS)' : `$${Number(p.price).toLocaleString('es-AR')}`;
+          const art = document.createElement('article');
+          art.className = 'tarjeta-producto';
+          art.dataset.id = p.id;
+          art.innerHTML = `
+            <div class="contenedor-imagen">
+              <a href="javascript:void(0)" class="enlace-detalle-producto">
+                <img src="${p.image_portada || ''}" alt="${p.title}">
+              </a>
+              <button class="boton-favorito" aria-label="Añadir a favoritos">${ICON_HEART}</button>
+            </div>
+            <div class="info-producto">
+              <div class="detalles-texto">
+                <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">${p.title.toUpperCase()}</a></h3>
+                <p class="precio-producto">${priceStr}</p>
+              </div>
+              <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">${ICON_CART}</button>
+            </div>`;
+
+          if (typeof PRODUCTOS_DATA !== 'undefined' && !PRODUCTOS_DATA[p.id]) {
+            PRODUCTOS_DATA[p.id] = {
+              nombre: p.title.toUpperCase(),
+              precio: priceStr,
+              stock: p.price === 0 ? 'Descarga gratuita' : 'Stock disponible',
+              fotos: [p.image_portada, p.image_detalle].filter(Boolean),
+              especificaciones: [],
+              descripcion: p.description || ''
+            };
+          }
+
+          art.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img').forEach(el => {
+            el.addEventListener('click', e => { e.preventDefault(); if(typeof abrirModalProducto==='function') abrirModalProducto(p.id); });
+          });
+          art.querySelector('.boton-agregar-rapido').addEventListener('click', e => {
+            e.stopPropagation();
+            if (window.agregarAlCarrito) window.agregarAlCarrito(p.id, p.title.toUpperCase(), 1, e.currentTarget);
+          });
+          art.querySelector('.boton-favorito').addEventListener('click', e => {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('activo');
+          });
+
+          grid.appendChild(art);
+        }
+      } catch(e) {
+        console.warn('Productos dinámicos no disponibles:', e.message);
+      }
+    })();
     </script>
 </body>
 </html>

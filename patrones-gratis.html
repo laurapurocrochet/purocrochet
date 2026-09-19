@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones Gratis - Puro Crochet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .banner-fino { height: 35vh; min-height: 240px; overflow: hidden; }
+        .banner-fino .imagen-portada { height: 100%; object-fit: cover; }
+        .precio-gratis { color: #2e7d32; font-weight: 700; letter-spacing: .4px; font-size: 15px; }
+        .grilla-gratis-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+            gap: 30px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body data-products-section="gratis">
+    <!-- HEADER -->
+    <header class="barra-superior">
+        <a href="index.html" class="logo-marca">
+            <img src="logo.png" alt="Logo Puro Crochet" class="imagen-logo">
+        </a>
+        <div class="menu-derecha">
+            <nav class="categorias">
+                <a href="index.html">Inicio</a>
+                <a href="Guias de tejido.html">Guías de tejido</a>
+                <a href="patrones-gratis.html" class="activo">Patrones gratis</a>
+                <a href="contacto.html">Contacto</a>
+            </nav>
+            <div class="iconos-navegacion">
+                <a href="#" class="carrito-contenedor" aria-label="Carrito de compras">
+                    <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="contador-rojo">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER -->
+    <section class="banner-imagen banner-fino">
+        <img src="banner-guia.jpg" alt="Patrones gratis de crochet" class="imagen-portada">
+        <div class="superposicion-texto">
+            <h1 class="frase-cursiva-blanca">Patrones gratis</h1>
+        </div>
+    </section>
+
+    <!-- MAIN PRODUCTOS GRATIS -->
+    <main class="seccion-coleccion">
+        <h2 class="titulo-coleccion">PATRONES GRATIS</h2>
+
+        <div class="grilla-productos grilla-gratis-2" data-products-grid>
+            <!-- 1. Patrón Pareo (Gratis) -->
+            <article class="tarjeta-producto" data-id="gratis-pareo">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="pareo-alma-portada.jpg" alt="Patrón Pareo">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN PAREO</a></h3>
+                        <p class="precio-producto precio-gratis">$0 (GRATIS)</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo a la bolsa">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+
+            <!-- 2. Patrón Cuellito (Gratis) -->
+            <article class="tarjeta-producto" data-id="gratis-cuellito">
+                <div class="contenedor-imagen">
+                    <a href="javascript:void(0)" class="enlace-detalle-producto">
+                        <img src="bufanda-capucha-abrazo-portada.jpg" alt="Patrón Cuellito">
+                    </a>
+                    <button class="boton-favorito" aria-label="Añadir a favoritos">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="info-producto">
+                    <div class="detalles-texto">
+                        <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN CUELLITO</a></h3>
+                        <p class="precio-producto precio-gratis">$0 (GRATIS)</p>
+                    </div>
+                    <button class="boton-agregar-rapido" aria-label="Añadir directo a la bolsa">
+                        <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="12" y1="10" x2="12" y2="16"></line>
+                            <line x1="9" y1="13" x2="15" y2="13"></line>
+                        </svg>
+                    </button>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- MODAL DETALLE DE PRODUCTO -->
+    <div class="modal-producto-overlay" id="modal-producto-overlay">
+        <div class="modal-producto-contenedor" role="dialog" aria-modal="true">
+            <button class="modal-cerrar" id="btn-cerrar-modal" aria-label="Cerrar ventana">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="galeria-producto">
+                <div class="miniaturas-lista" id="modal-miniaturas"></div>
+                <div class="imagen-principal-contenedor">
+                    <img id="modal-foto-principal" src="" alt="Foto principal">
+                </div>
+            </div>
+            <div class="info-compra-producto">
+                <h2 class="modal-titulo-producto" id="modal-nombre">Nombre</h2>
+                <div class="bloque-precio">
+                    <div class="modal-precio" id="modal-precio" style="color: #2e7d32;">$0 (GRATIS)</div>
+                </div>
+                <div class="bloque-stock">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span id="modal-stock">Descarga gratuita inmediata</span>
+                </div>
+                <ul class="detalles-especificaciones" id="modal-especificaciones"></ul>
+                <p class="modal-descripcion" id="modal-descripcion" style="white-space: pre-line;"></p>
+                <div class="control-cantidad-contenedor">
+                    <label for="modal-input-cantidad">Cantidad:</label>
+                    <div class="selector-cantidad">
+                        <button type="button" class="btn-cantidad" id="btn-menos-cant" aria-label="Disminuir cantidad">-</button>
+                        <input type="text" id="modal-input-cantidad" class="input-cantidad" value="1" readonly>
+                        <button type="button" class="btn-cantidad" id="btn-mas-cant" aria-label="Aumentar cantidad">+</button>
+                    </div>
+                </div>
+                <div class="acciones-compra">
+                    <button type="button" class="btn-comprar-ahora" id="btn-comprar-ahora">Obtener gratis</button>
+                    <button type="button" class="btn-agregar-carrito-modal" id="btn-modal-agregar-carrito">Agregar a la bolsa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+    <script src="custom-products.js"></script>
+    <script src="checkout.js"></script>
+    <script>
+        const PRODUCTOS_GRATIS_DATA = {
+            'gratis-pareo': {
+                nombre: 'PATRÓN PAREO',
+                precio: '$0 (GRATIS)',
+                stock: 'Descarga gratuita inmediata',
+                fotos: ['pareo-alma-portada.jpg', 'pareo-alma-detalle.jpg'],
+                especificaciones: [
+                    { label: 'Formato', valor: 'PDF digital descargable' },
+                    { label: 'Nivel', valor: 'Principiante / Intermedio' },
+                    { label: 'Precio', valor: '$0 (Gratis)' }
+                ],
+                descripcion: 'Un hermoso patrón para tejer tu propio pareo calado paso a paso con explicaciones detalladas y fotos guía.'
+            },
+            'gratis-cuellito': {
+                nombre: 'PATRÓN CUELLITO',
+                precio: '$0 (GRATIS)',
+                stock: 'Descarga gratuita inmediata',
+                fotos: ['bufanda-capucha-abrazo-portada.jpg', 'bufanda-capucha-abrazo.jpg'],
+                especificaciones: [
+                    { label: 'Formato', valor: 'PDF digital descargable' },
+                    { label: 'Nivel', valor: 'Fácil / Rápido de tejer' },
+                    { label: 'Precio', valor: '$0 (Gratis)' }
+                ],
+                descripcion: 'Un patrón express super abrigado y fácil para tejer un cuellito acogedor en tus tardes de tejido.'
+            }
+        };
+
+        const modalOverlay = document.getElementById('modal-producto-overlay');
+        const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+        const modalFotoPrincipal = document.getElementById('modal-foto-principal');
+        const modalMiniaturas = document.getElementById('modal-miniaturas');
+        const modalNombre = document.getElementById('modal-nombre');
+        const modalPrecio = document.getElementById('modal-precio');
+        const modalStock = document.getElementById('modal-stock');
+        const modalEspecificaciones = document.getElementById('modal-especificaciones');
+        const modalDescripcion = document.getElementById('modal-descripcion');
+        const inputCantidad = document.getElementById('modal-input-cantidad');
+        const btnMenosCant = document.getElementById('btn-menos-cant');
+        const btnMasCant = document.getElementById('btn-mas-cant');
+        const btnComprarAhora = document.getElementById('btn-comprar-ahora');
+        const btnModalAgregarCarrito = document.getElementById('btn-modal-agregar-carrito');
+
+        let prodSeleccionado = null;
+        let prodIdSeleccionado = null;
+
+        function abrirModal(id) {
+            const data = PRODUCTOS_GRATIS_DATA[id];
+            if (!data) return;
+            prodSeleccionado = data;
+            prodIdSeleccionado = id;
+            inputCantidad.value = 1;
+            modalNombre.textContent = data.nombre;
+            modalPrecio.textContent = data.precio;
+            modalStock.textContent = data.stock;
+            modalDescripcion.textContent = data.descripcion;
+            modalEspecificaciones.innerHTML = data.especificaciones.map(s => `<li><strong>${s.label}:</strong> ${s.valor}</li>`).join('');
+            modalFotoPrincipal.src = data.fotos[0];
+
+            modalMiniaturas.innerHTML = '';
+            data.fotos.forEach((f, idx) => {
+                const item = document.createElement('div');
+                item.className = `miniatura-item ${idx === 0 ? 'activo' : ''}`;
+                const img = document.createElement('img');
+                img.src = f;
+                item.appendChild(img);
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
+                    item.classList.add('activo');
+                    modalFotoPrincipal.src = f;
+                });
+                modalMiniaturas.appendChild(item);
+            });
+
+            modalOverlay.classList.add('activo');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModal() {
+            modalOverlay.classList.remove('activo');
+            document.body.style.overflow = '';
+        }
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
+
+        btnMenosCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            if (val > 1) inputCantidad.value = val - 1;
+        });
+        btnMasCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            inputCantidad.value = val + 1;
+        });
+
+        function bindProductEvents() {
+            document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
+                const id = tarjeta.getAttribute('data-id');
+                const enlaces = tarjeta.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img');
+                enlaces.forEach(enlace => {
+                    enlace.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        abrirModal(id);
+                    });
+                });
+            });
+            document.querySelectorAll('.boton-agregar-rapido').forEach((boton) => {
+                boton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const tarjeta = boton.closest('.tarjeta-producto');
+                    const nombre = tarjeta.querySelector('.nombre-producto').textContent.trim();
+                    if (window.agregarAlCarrito) {
+                        window.agregarAlCarrito(tarjeta.dataset.id, nombre, 1, boton);
+                    }
+                });
+            });
+            document.querySelectorAll('.boton-favorito').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    btn.classList.toggle('activo');
+                });
+            });
+        }
+
+        btnModalAgregarCarrito.addEventListener('click', (e) => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.agregarAlCarrito) {
+                window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
+            }
+            cerrarModal();
+        });
+
+        btnComprarAhora.addEventListener('click', (e) => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.iniciarCompraProducto) {
+                window.iniciarCompraProducto(prodIdSeleccionado, prodSeleccionado.nombre, cant);
+            } else if (window.agregarAlCarrito) {
+                window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
+                if (window.puroCrochetCart) window.puroCrochetCart.openCartDrawer();
+            }
+            cerrarModal();
+        });
+
+        bindProductEvents();
+    </script>
+
+    <!-- Carga dinámica de patrones gratis desde Supabase -->
+    <script>
+    (async function loadGratisProducts() {
+      if (document.body.dataset.productsSection) return;
+      try {
+        const res = await fetch('/api/products?section=gratis');
+        if (!res.ok) return;
+        const products = await res.json();
+        if (!products || !products.length) return;
+
+        const grid = document.querySelector('.grilla-productos');
+        if (!grid) return;
+        const existingIds = new Set([...grid.querySelectorAll('[data-id]')].map(el => el.dataset.id));
+        const ICON_HEART = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+        const ICON_CART = `<svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><line x1="12" y1="10" x2="12" y2="16"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>`;
+
+        for (const p of products) {
+          if (existingIds.has(p.id)) continue;
+          const art = document.createElement('article');
+          art.className = 'tarjeta-producto';
+          art.dataset.id = p.id;
+          art.innerHTML = `
+            <div class="contenedor-imagen">
+              <a href="javascript:void(0)" class="enlace-detalle-producto">
+                <img src="${p.image_portada || ''}" alt="${p.title}">
+              </a>
+              <button class="boton-favorito" aria-label="Añadir a favoritos">${ICON_HEART}</button>
+            </div>
+            <div class="info-producto">
+              <div class="detalles-texto">
+                <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">${p.title.toUpperCase()}</a></h3>
+                <p class="precio-producto precio-gratis">$0 (GRATIS)</p>
+              </div>
+              <button class="boton-agregar-rapido" aria-label="Añadir directo a la bolsa">${ICON_CART}</button>
+            </div>`;
+
+          PRODUCTOS_GRATIS_DATA[p.id] = {
+            nombre: p.title.toUpperCase(),
+            precio: '$0 (GRATIS)',
+            stock: 'Descarga gratuita inmediata',
+            fotos: [p.image_portada, p.image_detalle].filter(Boolean),
+            especificaciones: [{ label: 'Formato', valor: 'PDF digital descargable' }],
+            descripcion: p.description || ''
+          };
+
+          art.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img').forEach(el => {
+            el.addEventListener('click', e => { e.preventDefault(); abrirModal(p.id); });
+          });
+          art.querySelector('.boton-agregar-rapido').addEventListener('click', e => {
+            e.stopPropagation();
+            if (window.agregarAlCarrito) window.agregarAlCarrito(p.id, p.title.toUpperCase(), 1, e.currentTarget);
+          });
+          art.querySelector('.boton-favorito').addEventListener('click', e => {
+            e.stopPropagation();
+            e.currentTarget.classList.toggle('activo');
+          });
+
+          grid.appendChild(art);
+        }
+      } catch(e) {
+        console.warn('Productos gratis dinámicos no disponibles:', e.message);
+      }
+    })();
+    </script>
+</body>
+</html>
+
+            'gratis-pareo': {
+                nombre: 'PATRÓN PAREO',
+                precio: '$0 (GRATIS)',
+                stock: 'Descarga gratuita inmediata',
+                fotos: ['pareo-alma-portada.jpg', 'pareo-alma-detalle.jpg'],
+                especificaciones: [
+                    { label: 'Formato', valor: 'PDF digital descargable' },
+                    { label: 'Nivel', valor: 'Principiante / Intermedio' },
+                    { label: 'Precio', valor: '$0 (Gratis)' }
+                ],
+                descripcion: 'Un hermoso patrón para tejer tu propio pareo calado paso a paso con explicaciones detalladas y fotos guía.'
+            },
+            'gratis-cuellito': {
+                nombre: 'PATRÓN CUELLITO',
+                precio: '$0 (GRATIS)',
+                stock: 'Descarga gratuita inmediata',
+                fotos: ['bufanda-capucha-abrazo-portada.jpg', 'bufanda-capucha-abrazo.jpg'],
+                especificaciones: [
+                    { label: 'Formato', valor: 'PDF digital descargable' },
+                    { label: 'Nivel', valor: 'Fácil / Rápido de tejer' },
+                    { label: 'Precio', valor: '$0 (Gratis)' }
+                ],
+                descripcion: 'Un patrón express super abrigado y fácil para tejer un cuellito acogedor en tus tardes de tejido.'
+            }
+        };
+
+        const modalOverlay = document.getElementById('modal-producto-overlay');
+        const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+        const modalFotoPrincipal = document.getElementById('modal-foto-principal');
+        const modalMiniaturas = document.getElementById('modal-miniaturas');
+        const modalNombre = document.getElementById('modal-nombre');
+        const modalPrecio = document.getElementById('modal-precio');
+        const modalStock = document.getElementById('modal-stock');
+        const modalEspecificaciones = document.getElementById('modal-especificaciones');
+        const modalDescripcion = document.getElementById('modal-descripcion');
+        const inputCantidad = document.getElementById('modal-input-cantidad');
+        const btnMenosCant = document.getElementById('btn-menos-cant');
+        const btnMasCant = document.getElementById('btn-mas-cant');
+        const btnComprarAhora = document.getElementById('btn-comprar-ahora');
+        const btnModalAgregarCarrito = document.getElementById('btn-modal-agregar-carrito');
+
+        let prodSeleccionado = null;
+        let prodIdSeleccionado = null;
+
+        function abrirModal(id) {
+            const data = PRODUCTOS_GRATIS_DATA[id];
+            if (!data) return;
+            prodSeleccionado = data;
+            prodIdSeleccionado = id;
+            inputCantidad.value = 1;
+            modalNombre.textContent = data.nombre;
+            modalPrecio.textContent = data.precio;
+            modalStock.textContent = data.stock;
+            modalDescripcion.textContent = data.descripcion;
+            modalEspecificaciones.innerHTML = data.especificaciones.map(s => `<li><strong>${s.label}:</strong> ${s.valor}</li>`).join('');
+            modalFotoPrincipal.src = data.fotos[0];
+
+            modalMiniaturas.innerHTML = '';
+            data.fotos.forEach((f, idx) => {
+                const item = document.createElement('div');
+                item.className = `miniatura-item ${idx === 0 ? 'activo' : ''}`;
+                const img = document.createElement('img');
+                img.src = f;
+                item.appendChild(img);
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
+                    item.classList.add('activo');
+                    modalFotoPrincipal.src = f;
+                });
+                modalMiniaturas.appendChild(item);
+            });
+
+            modalOverlay.classList.add('activo');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModal() {
+            modalOverlay.classList.remove('activo');
+            document.body.style.overflow = '';
+        }
+
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
+
+        btnMenosCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            if (val > 1) inputCantidad.value = val - 1;
+        });
+        btnMasCant.addEventListener('click', () => {
+            let val = parseInt(inputCantidad.value) || 1;
+            inputCantidad.value = val + 1;
+        });
+
+        document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
+            const id = tarjeta.getAttribute('data-id');
+            const enlaces = tarjeta.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img');
+            enlaces.forEach(enlace => {
+                enlace.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    abrirModal(id);
+                });
+            });
+        });
+
+        btnModalAgregarCarrito.addEventListener('click', (e) => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.agregarAlCarrito) {
+                window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
+            }
+            cerrarModal();
+        });
+
+        btnComprarAhora.addEventListener('click', (e) => {
+            const cant = parseInt(inputCantidad.value) || 1;
+            if (window.iniciarCompraProducto) {
+                window.iniciarCompraProducto(prodIdSeleccionado, prodSeleccionado.nombre, cant);
+            } else if (window.agregarAlCarrito) {
+                window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
+                if (window.puroCrochetCart) window.puroCrochetCart.openCartDrawer();
+            }
+            cerrarModal();
+        });
+
+        document.querySelectorAll('.boton-agregar-rapido').forEach((boton) => {
+            boton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tarjeta = boton.closest('.tarjeta-producto');
+                const nombre = tarjeta.querySelector('.nombre-producto').textContent.trim();
+                if (window.agregarAlCarrito) {
+                    window.agregarAlCarrito(tarjeta.dataset.id, nombre, 1, boton);
+                }
+            });
+        });
+
+        document.querySelectorAll('.boton-favorito').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                btn.classList.toggle('activo');
+            });
+        });
+    </script>
+</body>
+</html>
