@@ -474,6 +474,26 @@
     <script src="cart.js"></script>
     <script src="custom-products.js"></script>
     <script src="checkout.js"></script>
+    <script>
+        // Datos completos de los productos para el modal
+        const PRODUCTOS_DATA = {
+            'ruana-abrazo': {
+                nombre: 'RUANA ABRAZO',
+                precio: '$20.000',
+                stock: 'Stock disponible',
+                fotos: [
+                    'ruana-abrazo-portada.jpg',
+                    'ruana-abrazo-detalle.jpg'
+                ],
+                especificaciones: [
+                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
+                    { label: 'Talle', valor: 'Único' },
+                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
+                ],
+                descripcion: 'Una prenda cómoda, versátil y perfecta para acompañarte en cualquier momento.\nCon ese toque artesanal que la hace única.'
+            },
+            'cardigan-abrazo': {
+                nombre: 'CÁRDIGAN ABRAZO',
                 precio: '$25.000',
                 stock: 'Stock disponible',
                 fotos: [

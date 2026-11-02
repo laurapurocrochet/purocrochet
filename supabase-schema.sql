@@ -12,6 +12,10 @@ create table if not exists public.patterns (
   created_at timestamptz not null default now()
 );
 
+-- Para tablas creadas antes de que existiera la columna description:
+alter table public.patterns add column if not exists description text;
+notify pgrst, 'reload schema';
+
 alter table public.patterns enable row level security;
 drop policy if exists "public can read visible patterns" on public.patterns;
 create policy "public can read visible patterns" on public.patterns for select using (visible = true);
