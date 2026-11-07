@@ -34,6 +34,9 @@ import adminProductsHandler from './api/admin/products/index.js';
 import adminProductByIdHandler from './api/admin/products/[id].js';
 import adminUploadsHandler from './api/admin/uploads.js';
 import adminSeedHandler from './api/admin/seed.js';
+import adminCollectionsHandler from './api/admin/collections/index.js';
+import adminCollectionByIdHandler from './api/admin/collections/[id].js';
+import { testEmailConnection } from './lib/email.js';
 
 const PORT = process.env.PORT || 3000;
 
@@ -132,6 +135,17 @@ const server = http.createServer(async (req, res) => {
     return adminProductByIdHandler(req, res);
   }
 
+  if (pathname === '/api/admin/collections' && (req.method === 'GET' || req.method === 'POST')) {
+    if (req.method === 'POST') req.body = await parseJsonBody(req);
+    return adminCollectionsHandler(req, res);
+  }
+
+  if (pathname.startsWith('/api/admin/collections/') && (req.method === 'PATCH' || req.method === 'DELETE')) {
+    req.query.id = decodeURIComponent(pathname.replace('/api/admin/collections/', ''));
+    if (req.method === 'PATCH') req.body = await parseJsonBody(req);
+    return adminCollectionByIdHandler(req, res);
+  }
+
   // ─── Admin Seed (import default products to Supabase) ─────────────────────
   if (pathname === '/api/admin/seed' && req.method === 'POST') {
     return adminSeedHandler(req, res);
@@ -150,6 +164,13 @@ const server = http.createServer(async (req, res) => {
   if (pathname === '/api/webhooks/mercadopago') {
     req.body = await parseJsonBody(req);
     return webhookHandler(req, res);
+  }
+
+  if (pathname === '/api/test-email' && req.method === 'POST') {
+    req.body = await parseJsonBody(req);
+    const targetEmail = req.body.to || req.body.email;
+    const result = await testEmailConnection(targetEmail);
+    return res.status(result.success ? 200 : 400).json(result);
   }
 
   // Secure local PDF download handler
@@ -202,6 +223,10 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
+  const emailStatus = process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD
+    ? `Configurado Gmail (${process.env.GMAIL_USER}) ✓`
+    : (process.env.SMTP_HOST ? 'Configurado SMTP ✓' : 'No configurado ✗ (Completar GMAIL_USER y GMAIL_APP_PASSWORD en .env)');
+
   console.log(`
   🧶 ========================================================
      Puro Crochet - Servidor Node.js activo
@@ -209,6 +234,7 @@ server.listen(PORT, () => {
      🌐 Tienda: http://localhost:${PORT}
      💳 Mercado Pago: ${process.env.MP_MODE === 'test' ? 'MODO TEST / SANDBOX' : 'MODO PRODUCCIÓN'}
      📦 Access Token: ${process.env.MP_ACCESS_TOKEN ? 'Configurado ✓' : 'No configurado ✗'}
+     ✉️ Email Automático: ${emailStatus}
   ========================================================
   `);
 });

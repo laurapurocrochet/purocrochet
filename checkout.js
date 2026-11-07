@@ -40,8 +40,8 @@
     'guia-bufanda-capucha': 12000,
     'poncho-abrazo': 20000,
     'guia-poncho-abrazo': 20000,
-    'poncho-luz': 20000,
-    'guia-poncho-luz': 20000,
+    'poncho-luz': 15000,
+    'guia-poncho-luz': 15000,
     'chaleco-suave': 15000,
     'guia-chaleco-suave': 15000,
     'cardigan-calido': 20000,
@@ -340,7 +340,8 @@
       payButton.disabled = true;
       payButton.classList.add('loading');
     }
-    if (payText) payText.textContent = 'Conectando con Mercado Pago seguro…';
+    const isFreeProduct = ['gratis-pareo', 'gratis-cuellito'].includes(currentPurchase?.productId);
+    if (payText) payText.textContent = isFreeProduct ? 'Preparando tu patrón gratis…' : 'Conectando con Mercado Pago seguro…';
     if (errorEl) {
       errorEl.textContent = '';
       errorEl.style.display = 'none';
@@ -360,10 +361,16 @@
         body: JSON.stringify(payload)
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch {
+        throw new Error(`El servidor respondió en un formato inesperado (HTTP ${response.status}).`);
+      }
 
       if (!response.ok || !data.checkoutUrl) {
-        throw new Error(data.error || 'No pudimos generar el enlace seguro de Mercado Pago. Por favor intentá nuevamente.');
+        throw new Error(data.error || `No se pudo iniciar el pedido (HTTP ${response.status}). Intentá nuevamente.`);
       }
 
       window.location.assign(data.checkoutUrl);

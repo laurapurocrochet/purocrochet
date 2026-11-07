@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isAdminRequest } from '../../lib/adminAuth.js';
-import { createPattern, getPatternById, uploadPatternFile } from '../../lib/supabase.js';
+import { createPattern, getPatternById, updatePattern, uploadPatternFile } from '../../lib/supabase.js';
 import { PRODUCTS } from '../../lib/products.js';
 import { SEED_SECTION_MAP, SEED_IMAGE_MAP } from '../../lib/seedData.js';
 
@@ -15,30 +15,38 @@ const IMAGE_CONTENT_TYPES = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.jgp
 // Reads a file that already lives in the repo (the store's original hardcoded
 // patterns) and uploads it into Supabase Storage, so seeded rows point at real
 // signed-URL-able objects instead of a bare local filename.
-async function uploadLocalFile(relativeName, kind) {
+async function uploadLocalFile(relativeName, kind, key = null) {
   if (!relativeName) return null;
   const filePath = path.join(projectRoot, relativeName);
   if (!fs.existsSync(filePath)) throw new Error(`Archivo local no encontrado: ${relativeName}`);
   const buffer = fs.readFileSync(filePath);
   const ext = path.extname(relativeName).toLowerCase();
   const contentType = kind === 'pdf' ? 'application/pdf' : (IMAGE_CONTENT_TYPES[ext] || 'application/octet-stream');
-  return uploadPatternFile({ buffer, filename: relativeName, contentType, kind });
+  return uploadPatternFile({ buffer, filename: relativeName, contentType, kind, key });
 }
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
   if (!isAdminRequest(req)) return res.status(401).json({ error: 'No autorizado' });
 
-  let seeded = 0, skipped = 0, errors = [];
+  let seeded = 0, updated = 0, skipped = 0, errors = [];
   for (const [id, section] of Object.entries(SEED_SECTION_MAP)) {
     const prod = PRODUCTS[id];
     if (!prod) { skipped++; continue; }
     try {
       const existing = await getPatternById(id);
-      if (existing) { skipped++; continue; }
+      if (existing) {
+        const update = { price: prod.price };
+        if (fs.existsSync(path.join(projectRoot, prod.file))) {
+          update.file = await uploadLocalFile(prod.file, 'pdf', id);
+        }
+        await updatePattern(id, update);
+        updated++;
+        continue;
+      }
 
       const imgs = SEED_IMAGE_MAP[id] || [];
-      const filePath = await uploadLocalFile(prod.file, 'pdf');
+      const filePath = await uploadLocalFile(prod.file, 'pdf', id);
       const portadaPath = await uploadLocalFile(imgs[0], 'image');
       const detallePath = await uploadLocalFile(imgs[1], 'image');
 
@@ -53,5 +61,5 @@ export default async function handler(req, res) {
       else errors.push(`${id}: ${e.message}`);
     }
   }
-  return res.status(200).json({ seeded, skipped, errors });
+  return res.status(200).json({ seeded, updated, skipped, errors });
 }

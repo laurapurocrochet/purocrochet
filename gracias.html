@@ -254,7 +254,16 @@
                 });
 
                 const res = await fetch(`/api/payment-status?${query.toString()}`);
-                const data = await res.json();
+                const responseText = await res.text();
+                let data = {};
+                try {
+                    data = responseText ? JSON.parse(responseText) : {};
+                } catch {
+                    throw new Error(`El servidor respondió en un formato inesperado (HTTP ${res.status}).`);
+                }
+                if (!res.ok) {
+                    throw new Error(data.message || data.error || `No se pudo consultar el pedido (HTTP ${res.status}).`);
+                }
 
                 if (data.status === 'approved') {
                     // Pago Aprobado
@@ -270,9 +279,17 @@
                     iconDiv.innerHTML = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
                     document.getElementById('tarjeta-estado').prepend(iconDiv);
 
-                    tituloEl.textContent = '¡Pago aprobado con éxito!';
-                    mensajeEl.innerHTML = `Tu compra fue procesada correctamente por Mercado Pago.<br>Ya podés descargar tus patrones PDF aquí abajo.` + 
-                        (data.payerEmail ? `<br><small style="color:#888;">Enviamos también una copia a <strong>${data.payerEmail}</strong></small>` : '');
+                    if (data.isFree) {
+                        tituloEl.textContent = '¡Tu patrón gratis está listo!';
+                        mensajeEl.innerHTML = 'Ya podés descargar el patrón PDF aquí abajo.' +
+                            (data.emailSent && data.payerEmail
+                                ? `<br><small style="color:#2e7d32; font-weight:600;">Enviamos una copia a <strong>${data.payerEmail}</strong>.</small>`
+                                : '<br><small>El envío por correo no se confirmó; descargalo directamente desde esta página.</small>');
+                    } else {
+                        tituloEl.textContent = '¡Pago aprobado con éxito!';
+                        mensajeEl.innerHTML = `Tu compra fue procesada correctamente por Mercado Pago.<br>Ya podés descargar tus patrones PDF aquí abajo.` +
+                            (data.emailSent && data.payerEmail ? `<br><small style="color:#2e7d32; font-weight:600;">Enviamos también tus patrones PDF adjuntos a <strong>${data.payerEmail}</strong>.</small>` : '');
+                    }
 
                     const items = data.items && data.items.length > 0 ? data.items : [
                         { title: data.product || 'Guía de tejido', downloadUrl: data.downloadUrl || '#' }
@@ -333,7 +350,8 @@
                 } else {
                     if (spinnerEl) spinnerEl.remove();
                     tituloEl.textContent = '¡Gracias por tu visita!';
-                    mensajeEl.textContent = 'Si completaste el pago en Mercado Pago, recibirás los enlaces de descarga en tu correo electrónico en los próximos minutos.';
+                    tituloEl.textContent = 'No se pudo preparar la descarga';
+                    mensajeEl.textContent = err.message || 'No pudimos consultar tu pedido. Actualizá la página para volver a intentar.';
                 }
             }
         }

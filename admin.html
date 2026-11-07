@@ -362,6 +362,20 @@
     /* Product list */
     .product-list { display: grid; gap: 12px; }
 
+    .collection-list { display: grid; gap: 14px; margin-top: 24px; }
+    .collection-item { padding: 18px; border: 1px solid var(--beige); border-radius: var(--radius-sm); background: var(--white); }
+    .collection-item-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .collection-item-title { color: var(--brown); font-size: 15px; font-weight: 700; }
+    .collection-item-meta { margin-top: 5px; color: var(--text-light); font-size: 12px; }
+    .collection-item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .collection-editor { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--beige); }
+    .collection-editor h3 { margin-bottom: 12px; color: var(--brown); font-size: 14px; }
+    .collection-product-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; max-height: 340px; overflow-y: auto; margin-bottom: 16px; }
+    .collection-product-option { display: flex; align-items: flex-start; gap: 10px; padding: 11px; border: 1px solid var(--beige); border-radius: var(--radius-sm); font-size: 12px; cursor: pointer; }
+    .collection-product-option input { margin-top: 2px; accent-color: var(--terracotta); }
+    .collection-product-option span { min-width: 0; }
+    .collection-product-option small { display: block; margin-top: 3px; color: var(--text-muted); }
+
     .product-item {
       display: flex;
       align-items: center;
@@ -484,7 +498,10 @@
 
     @media (max-width: 720px) {
       .admin-body { grid-template-columns: 1fr; }
-      .admin-sidebar { display: none; }
+      .admin-sidebar { display: flex; flex-wrap: nowrap; gap: 4px; padding: 8px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--beige); }
+      .sidebar-section { display: none; }
+      .sidebar-item { flex: 0 0 auto; padding: 10px 12px; border-left: 0; border-bottom: 3px solid transparent; }
+      .sidebar-item.active { border-left-color: transparent; border-bottom-color: var(--terracotta); }
       .admin-main { padding: 20px 16px; }
       .form-grid { grid-template-columns: 1fr; }
       .form-grid .full { grid-column: 1; }
@@ -551,6 +568,11 @@
         Patrones Gratis
         <span class="sidebar-count" id="count-gratis">–</span>
       </div>
+      <div class="sidebar-item" data-tab="colecciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="7"/><rect x="14" y="4" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Colecciones
+        <span class="sidebar-count" id="count-colecciones">0</span>
+      </div>
 
       <p class="sidebar-section">Acciones</p>
       <div class="sidebar-item" data-tab="nuevo">
@@ -570,8 +592,8 @@
             <path d="M12 12C12 12 15 9 19 9C20.5 9 22 10 22 10S21 15 17 17C14.5 18 12 12 12 12Z"/>
           </svg>
           <div class="seed-card-text">
-            <h3>🌱 Importar productos existentes a Supabase</h3>
-            <p>Si la tabla está vacía, importá todos los patrones actuales de la tienda a la base de datos con un clic. Los nuevos productos que agregues desde acá aparecerán automáticamente en la tienda.</p>
+            <h3>🌱 Sincronizar productos con Supabase</h3>
+            <p>Importá los patrones actuales y actualizá el precio y el PDF de los artículos existentes cuando haya una copia local corregida.</p>
           </div>
           <button class="btn btn-accent" id="btn-seed" style="flex-shrink:0; min-width:140px;">
             Sincronizar
@@ -628,6 +650,33 @@
             Patrones Gratis
           </h2>
           <div class="product-list" id="product-list-gratis"></div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-colecciones">
+        <div class="card">
+          <h2 class="card-title">Colecciones</h2>
+          <form id="coleccion-form" autocomplete="off">
+            <div class="form-grid">
+              <div class="field">
+                <label for="c-name">Nombre *</label>
+                <input type="text" id="c-name" placeholder="Ej: Especial invierno" required>
+              </div>
+              <div class="field">
+                <label for="c-slug">Slug de colección *</label>
+                <input type="text" id="c-slug" placeholder="especial-invierno" required pattern="[a-z0-9]+(-[a-z0-9]+)*" title="Usá letras minúsculas, números y guiones">
+              </div>
+              <div class="field full">
+                <label for="c-description">Descripción (opcional)</label>
+                <textarea id="c-description" placeholder="Descripción breve de la colección."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="max-width:260px;">Crear colección</button>
+          </form>
+          <div id="coleccion-notice" style="display:none;"></div>
+          <div id="collection-list" class="collection-list">
+            <div class="empty-state"><p>Cargando colecciones...</p></div>
+          </div>
         </div>
       </div>
 
@@ -705,6 +754,7 @@
   const TOKEN_KEY = 'purocrochet_admin_token';
   let _token = sessionStorage.getItem(TOKEN_KEY);
   let _allProducts = [];
+  let _allCollections = [];
 
   // ── Auth helpers ───────────────────────────────────────────────────────────
   async function login(password) {
@@ -727,10 +777,10 @@
   }
 
   // ── UI State ───────────────────────────────────────────────────────────────
-  function showDashboard() {
+  async function showDashboard() {
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('dashboard').style.display = 'block';
-    loadProducts();
+    await Promise.all([loadProducts(), loadCollections()]);
   }
 
   function showLogin() {
@@ -750,6 +800,7 @@
       if (['inicio','guias','gratis'].includes(item.dataset.tab)) {
         renderSection(item.dataset.tab);
       }
+      if (item.dataset.tab === 'colecciones') loadCollections();
     });
   });
 
@@ -764,6 +815,108 @@
       document.getElementById('product-list').innerHTML =
         `<div class="notice notice-error">Error cargando productos: ${e.message}</div>`;
     }
+  }
+
+  async function loadCollections() {
+    const container = document.getElementById('collection-list');
+    try {
+      const response = await fetch('/api/admin/collections', { headers: authHeaders() });
+      if (response.status === 401) { showLogin(); return; }
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'No se pudieron cargar las colecciones.');
+      _allCollections = data;
+      document.getElementById('count-colecciones').textContent = data.length;
+      renderCollections();
+    } catch (error) {
+      container.innerHTML = `<div class="notice notice-error">Error cargando colecciones: ${escapeHtml(error.message)}</div>`;
+    }
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+  }
+
+  function renderCollections() {
+    const container = document.getElementById('collection-list');
+    if (!_allCollections.length) {
+      container.innerHTML = '<div class="empty-state"><h3>Todavía no hay colecciones</h3><p>Creá una arriba y después vinculale artículos.</p></div>';
+      return;
+    }
+    container.innerHTML = '';
+    for (const collection of _allCollections) {
+      const item = document.createElement('article');
+      item.className = 'collection-item';
+      item.innerHTML = `
+        <div class="collection-item-header">
+          <div><h3 class="collection-item-title">${escapeHtml(collection.name)}</h3>
+            <p class="collection-item-meta">/${escapeHtml(collection.slug)} · ${(collection.productIds || []).length} artículos</p></div>
+          <div class="collection-item-actions">
+            <button type="button" class="btn btn-outline btn-sm btn-collection-products">Vincular artículos</button>
+            <button type="button" class="btn btn-danger btn-sm btn-collection-delete">Eliminar</button>
+          </div>
+        </div>
+        <div class="collection-editor" hidden></div>`;
+      const editor = item.querySelector('.collection-editor');
+      const manageButton = item.querySelector('.btn-collection-products');
+      manageButton.addEventListener('click', () => {
+        editor.hidden = !editor.hidden;
+        manageButton.textContent = editor.hidden ? 'Vincular artículos' : 'Cerrar selección';
+        if (!editor.hidden) renderCollectionProducts(editor, collection);
+      });
+      item.querySelector('.btn-collection-delete').addEventListener('click', async () => {
+        if (!confirm(`¿Eliminar la colección "${collection.name}"? Los artículos no se borrarán.`)) return;
+        try {
+          const response = await fetch(`/api/admin/collections/${encodeURIComponent(collection.id)}`, {
+            method: 'DELETE', headers: authHeaders()
+          });
+          const data = await response.json();
+          if (!response.ok) throw new Error(data.error || 'No se pudo eliminar la colección.');
+          await loadCollections();
+        } catch (error) { alert('Error: ' + error.message); }
+      });
+      container.appendChild(item);
+    }
+  }
+
+  function renderCollectionProducts(editor, collection) {
+    editor.innerHTML = '<h3>Artículos de esta colección</h3><div class="collection-product-options"></div><button type="button" class="btn btn-accent btn-save-collection">Guardar artículos</button>';
+    const options = editor.querySelector('.collection-product-options');
+    for (const product of _allProducts) {
+      const label = document.createElement('label');
+      label.className = 'collection-product-option';
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = product.id;
+      checkbox.checked = (collection.productIds || []).includes(product.id);
+      const text = document.createElement('span');
+      text.textContent = product.title;
+      const meta = document.createElement('small');
+      meta.textContent = `${product.section} · ${product.id}`;
+      text.appendChild(meta);
+      label.append(checkbox, text);
+      options.appendChild(label);
+    }
+    if (!_allProducts.length) options.innerHTML = '<p>No hay artículos cargados para vincular.</p>';
+    editor.querySelector('.btn-save-collection').addEventListener('click', async event => {
+      const button = event.currentTarget;
+      const productIds = [...options.querySelectorAll('input:checked')].map(input => input.value);
+      button.disabled = true;
+      button.textContent = 'Guardando...';
+      try {
+        const response = await fetch(`/api/admin/collections/${encodeURIComponent(collection.id)}`, {
+          method: 'PATCH', headers: authHeaders(), body: JSON.stringify({ productIds })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'No se pudieron guardar los artículos.');
+        await loadCollections();
+      } catch (error) {
+        alert('Error: ' + error.message);
+        button.disabled = false;
+        button.textContent = 'Guardar artículos';
+      }
+    });
   }
 
   function renderAll() {
@@ -869,7 +1022,7 @@
       if (!r.ok) throw new Error(d.error);
       resultDiv.style.display = 'block';
       resultDiv.className = 'notice notice-success';
-      resultDiv.textContent = `✅ ${d.seeded} productos importados${d.skipped ? `, ${d.skipped} ya existían` : ''}.${d.errors?.length ? ' Errores: ' + d.errors.join(', ') : ''}`;
+      resultDiv.textContent = `✅ ${d.seeded} productos importados${d.updated ? `, ${d.updated} actualizados` : ''}${d.skipped ? `, ${d.skipped} sin cambios` : ''}.${d.errors?.length ? ' Errores: ' + d.errors.join(', ') : ''}`;
       await loadProducts();
     } catch(e) {
       resultDiv.style.display = 'block';
@@ -880,6 +1033,50 @@
       btn.disabled = false;
     }
   });
+
+  document.getElementById('coleccion-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const notice = document.getElementById('coleccion-notice');
+    const button = form.querySelector('[type=submit]');
+    const payload = {
+      name: document.getElementById('c-name').value.trim(),
+      slug: document.getElementById('c-slug').value.trim(),
+      description: document.getElementById('c-description').value.trim() || null
+    };
+    button.disabled = true;
+    button.textContent = 'Creando...';
+    notice.style.display = 'none';
+    try {
+      const response = await fetch('/api/admin/collections', {
+        method: 'POST', headers: authHeaders(), body: JSON.stringify(payload)
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'No se pudo crear la colección.');
+      form.reset();
+      document.getElementById('c-slug')._touched = false;
+      notice.style.display = 'block';
+      notice.className = 'notice notice-success';
+      notice.textContent = `Colección "${data.name}" creada.`;
+      await loadCollections();
+    } catch (error) {
+      notice.style.display = 'block';
+      notice.className = 'notice notice-error';
+      notice.textContent = error.message;
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Crear colección';
+    }
+  });
+
+  document.getElementById('c-name').addEventListener('input', () => {
+    const slugField = document.getElementById('c-slug');
+    if (slugField._touched) return;
+    slugField.value = document.getElementById('c-name').value.toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '').trim().replace(/[\s-]+/g, '-');
+  });
+  document.getElementById('c-slug').addEventListener('input', event => { event.currentTarget._touched = true; });
 
   // ── Add product form ────────────────────────────────────────────────────────
   document.getElementById('nuevo-form').addEventListener('submit', async (e) => {

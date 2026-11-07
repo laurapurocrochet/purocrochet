@@ -64,6 +64,7 @@
             <nav class="categorias">
                 <a href="index.html" class="activo">Inicio</a>
                 <a href="Guias de tejido.html">Guías de tejido</a>
+                <a href="patrones-gratis.html">Patrones gratis</a>
                 <a href="contacto.html">Contacto</a>
             </nav>
 
@@ -110,12 +111,10 @@
          3. COLECCIÓN ABRAZO
          ========================================== -->
     <main class="seccion-coleccion">
-        <h2 class="titulo-coleccion">COLECCIÓN ABRAZO</h2>
+        <h2 class="titulo-coleccion">PATRONES COLECCIÓN ABRAZO</h2>
 
         <div class="grilla-productos" data-products-grid>
 
-            <!-- 1. Ruana Abrazo -->
-            <!-- 1. Ruana Abrazo -->
             <!-- 1. Ruana Abrazo -->
             <article class="tarjeta-producto" data-id="ruana-abrazo">
                 <div class="contenedor-imagen">
@@ -257,7 +256,7 @@
                 <div class="info-producto">
                     <div class="detalles-texto">
                         <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PONCHO ABRAZO</a></h3>
-                        <p class="precio-producto">$20.000</p>
+                        <p class="precio-producto">$15.000</p>
                     </div>
                     <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
                         <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -350,7 +349,7 @@
                 <div class="info-producto">
                     <div class="detalles-texto">
                         <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">PATRÓN PONCHO LUZ</a></h3>
-                        <p class="precio-producto">$20.000</p>
+                        <p class="precio-producto">$15.000</p>
                     </div>
                     <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">
                         <svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -366,6 +365,10 @@
         </div>
     </main>
 
+    <section class="seccion-coleccion">
+        <h2 class="titulo-coleccion">PATRONES COLECCIÓN ESENCIA</h2>
+    </section>
+
     <!-- ==========================================
          4. BARRA DE BENEFICIOS
          ========================================== -->
@@ -373,20 +376,7 @@
         <div class="item-beneficio">
             <svg class="icono-beneficio-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
                 stroke-linecap="round" stroke-linejoin="round">
-                <rect x="1" y="3" width="15" height="13"></rect>
-                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                <circle cx="18.5" cy="18.5" r="2.5"></circle>
-            </svg>
-            <p><strong>Envíos a todo el país</strong><br>Recibí tu prenda en la puerta de tu casa.</p>
-        </div>
-
-        <div class="item-beneficio">
-            <svg class="icono-beneficio-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
-                </path>
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
             </svg>
             <p><strong>100% Hecho a Mano</strong><br>Tejido cuidadosamente prenda por prenda.</p>
         </div>
@@ -474,386 +464,65 @@
     <script src="cart.js"></script>
     <script src="custom-products.js"></script>
     <script src="checkout.js"></script>
-    <script>
-        // Datos completos de los productos para el modal
-        const PRODUCTOS_DATA = {
-            'ruana-abrazo': {
-                nombre: 'RUANA ABRAZO',
-                precio: '$20.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'ruana-abrazo-portada.jpg',
-                    'ruana-abrazo-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
-                    { label: 'Talle', valor: 'Único' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Una prenda cómoda, versátil y perfecta para acompañarte en cualquier momento.\nCon ese toque artesanal que la hace única.'
-            },
-            'cardigan-abrazo': {
-                nombre: 'CÁRDIGAN ABRAZO',
-                precio: '$25.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'cardigan-abrazo-portada.jpg',
-                    'cardigan-abrazo-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Hilado de algodón grosor fino' },
-                    { label: 'Talle', valor: 'Personalizado' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Es un diseño cómodo, suave y pensado para usar todos los días, de esos que no te querés sacar.'
-            },
-            'chaleco-abrazo': {
-                nombre: 'CHALECO ABRAZO',
-                precio: '$15.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'chaleco-abrazo-portada.jpg',
-                    'chaleco-abrazo-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Lana con brillo papayta grosor intermedio' },
-                    { label: 'Talle', valor: 'Personalizado' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Este chaleco lo pensé para usar sin vueltas: con jean, con algo más arreglado o simplemente para estar cómoda y linda al mismo tiempo.\nEs liviano y super adaptable… de esos que terminan siendo un básico sin darte cuenta.'
-            },
-            'bufanda-capucha-abrazo': {
-                nombre: 'BUFANDA CON CAPUCHA ABRAZO',
-                precio: '$12.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'bufanda-capucha-abrazo-portada.jpg',
-                    'bufanda-capucha-abrazo.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Lana nevilan' },
-                    { label: 'Talle', valor: 'Personalizado' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Hay tejidos que llegan para quedarse en el día a día.\nEsta bufanda con capucha está pensada para eso: para abrigarte sin complicaciones, para salir rápido y sentirte cómoda al mismo tiempo.\nEs práctica, versátil y tiene ese toque especial de lo hecho a mano que transforma algo simple en único.\nOjalá la disfrutes tanto como yo disfruté crearla.'
-            },
-            'poncho-abrazo': {
-                nombre: 'PONCHO ABRAZO',
-                precio: '$20.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'poncho-abrazo-portada.jpg',
-                    'poncho-abrazo-detalle.jgp'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Lana nevilan o cualquier lana que tengan en grosor intermedio (recomiendo lana con porcentaje de acrílico y lana porque es más calentita y tiene mejor caída que la lana totalmente acrílica)' },
-                    { label: 'Talle', valor: 'Personalizado' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Este poncho nació granny por granny, entre ideas, pruebas y muchas ganas de crear algo lindo y abrigado para este invierno.\nVamos a tejerlo juntas paso a paso, de manera simple y acompañada, para que puedas disfrutar el proceso y ver cómo va tomando forma con tus propias manos.\nEspero que disfrutes muchísimo este proyecto tanto como disfruté creándolo.'
-            },
-            'chaleco-suave': {
-                nombre: 'CHALECO ABRAZO SUAVE',
-                precio: '$15.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'chaleco-suave-portada.jpg',
-                    'chaleco-suave-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Lana pansy de L.H.O (260 grs)' },
-                    { label: 'Talle', valor: 'Único' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Es un chaleco cómodo, amplio y para utilizar en cualquier momento del día.'
-            },
-            'cardigan-calido': {
-                nombre: 'CÁRDIGAN ABRAZO CÁLIDO',
-                precio: '$20.000',
-                stock: 'Stock disponible',
-                fotos: [
-                    'cardigan-calido-portada.jpg',
-                    'cardigan-calido-detalle.jpg'
-                ],
-                especificaciones: [
-                    { label: 'Material', valor: 'Profano de L.H.O' },
-                    { label: 'Talle', valor: 'Personalizado' },
-                    { label: 'Cuidados', valor: 'Lavado a mano, no retorcer y secar sobre superficie plana' }
-                ],
-                descripcion: 'Es un cárdigan cómodo, versátil y pensado para acompañarte en esos días en los que queremos sentirnos abrigadas y lindas.'
-            }
-        };
-
-        // Elementos del Modal
-        const modalOverlay = document.getElementById('modal-producto-overlay');
-        const btnCerrarModal = document.getElementById('btn-cerrar-modal');
-        const modalFotoPrincipal = document.getElementById('modal-foto-principal');
-        const modalMiniaturas = document.getElementById('modal-miniaturas');
-        const modalNombre = document.getElementById('modal-nombre');
-        const modalPrecio = document.getElementById('modal-precio');
-        const modalStock = document.getElementById('modal-stock');
-        const modalEspecificaciones = document.getElementById('modal-especificaciones');
-        const modalDescripcion = document.getElementById('modal-descripcion');
-        const inputCantidad = document.getElementById('modal-input-cantidad');
-        const btnMenosCant = document.getElementById('btn-menos-cant');
-        const btnMasCant = document.getElementById('btn-mas-cant');
-        const btnComprarAhora = document.getElementById('btn-comprar-ahora');
-        const btnModalAgregarCarrito = document.getElementById('btn-modal-agregar-carrito');
-        const toastCarrito = document.getElementById('toast-carrito');
-        const toastMensaje = document.getElementById('toast-mensaje');
-        const contadorCarrito = document.querySelector('.contador-rojo');
-
-        let cantidadEnCarrito = 0;
-        let productoActualSeleccionado = null;
-        let productoActualIdSeleccionado = null;
-
-        // Función para mostrar Toast de notificación
-        function mostrarToast(mensaje) {
-            toastMensaje.textContent = mensaje;
-            toastCarrito.classList.add('activo');
-            setTimeout(() => {
-                toastCarrito.classList.remove('activo');
-            }, 2500);
-        }
-
-        // Función para abrir modal con la información del producto
-        function abrirModalProducto(idProducto) {
-            const data = PRODUCTOS_DATA[idProducto];
-            if (!data) return;
-
-            productoActualSeleccionado = data;
-            productoActualIdSeleccionado = idProducto;
-            inputCantidad.value = 1;
-
-            modalNombre.textContent = data.nombre;
-            modalPrecio.textContent = data.precio;
-            modalStock.textContent = data.stock;
-            modalDescripcion.textContent = data.descripcion;
-
-            // Renderizar especificaciones
-            modalEspecificaciones.innerHTML = data.especificaciones.map(spec => 
-                `<li><strong>${spec.label}:</strong> ${spec.valor}</li>`
-            ).join('');
-
-            // Configurar fotos y miniaturas
-            modalFotoPrincipal.src = data.fotos[0];
-            modalFotoPrincipal.onerror = () => { modalFotoPrincipal.src = data.fotos[0]; };
-
-            modalMiniaturas.innerHTML = '';
-            data.fotos.forEach((foto, index) => {
-                const item = document.createElement('div');
-                item.className = `miniatura-item ${index === 0 ? 'activo' : ''}`;
-                
-                const img = document.createElement('img');
-                img.src = foto;
-                img.alt = `${data.nombre} foto ${index + 1}`;
-                img.onerror = function() {
-                    this.src = data.fotos[0]; // fallback a la foto principal si aún no existe
-                };
-
-                item.appendChild(img);
-
-                item.addEventListener('mouseenter', () => {
-                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
-                    item.classList.add('activo');
-                    modalFotoPrincipal.style.opacity = '0.5';
-                    setTimeout(() => {
-                        modalFotoPrincipal.src = img.src;
-                        modalFotoPrincipal.style.opacity = '1';
-                    }, 100);
-                });
-
-                item.addEventListener('click', () => {
-                    document.querySelectorAll('.miniatura-item').forEach(m => m.classList.remove('activo'));
-                    item.classList.add('activo');
-                    modalFotoPrincipal.src = img.src;
-                });
-
-                modalMiniaturas.appendChild(item);
-            });
-
-            modalOverlay.classList.add('activo');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Función para cerrar modal
-        function cerrarModal() {
-            modalOverlay.classList.remove('activo');
-            document.body.style.overflow = 'auto';
-        }
-
-        btnCerrarModal.addEventListener('click', cerrarModal);
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) cerrarModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('activo')) cerrarModal();
-        });
-
-        // Controles de cantidad en modal
-        btnMenosCant.addEventListener('click', () => {
-            let val = parseInt(inputCantidad.value) || 1;
-            if (val > 1) inputCantidad.value = val - 1;
-        });
-
-        btnMasCant.addEventListener('click', () => {
-            let val = parseInt(inputCantidad.value) || 1;
-            inputCantidad.value = val + 1;
-        });
-
-        // Eventos para abrir modal al hacer clic en fotos o títulos de la grilla
-        document.querySelectorAll('.tarjeta-producto').forEach(tarjeta => {
-            const id = tarjeta.getAttribute('data-id');
-            const enlaces = tarjeta.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img');
-
-            enlaces.forEach(enlace => {
-                enlace.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    abrirModalProducto(id);
-                });
-            });
-        });
-
-        // Botón "Agregar al carrito" dentro del Modal
-        btnModalAgregarCarrito.addEventListener('click', () => {
-            const cant = parseInt(inputCantidad.value) || 1;
-            if (window.agregarAlCarrito) {
-                window.agregarAlCarrito(productoActualIdSeleccionado, productoActualSeleccionado.nombre, cant);
-            }
-            cerrarModal();
-        });
-
-        // Botón "Comprar ahora" dentro del Modal
-        btnComprarAhora.addEventListener('click', () => {
-            const cant = parseInt(inputCantidad.value) || 1;
-            if (window.iniciarCompraProducto) {
-                window.iniciarCompraProducto(productoActualIdSeleccionado, productoActualSeleccionado.nombre, cant);
-            }
-        });
-
-        // Botones de agregar rápido en la grilla
-        const botonesAgregar = document.querySelectorAll('.boton-agregar-rapido');
-        botonesAgregar.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const tarjeta = button.closest('.tarjeta-producto');
-                const id = tarjeta.getAttribute('data-id');
-                const nombre = tarjeta.querySelector('.nombre-producto').textContent.trim();
-                if (window.agregarAlCarrito) {
-                    window.agregarAlCarrito(id, nombre, 1);
-                }
-            });
-        });
-
-        // Funcionalidad de favoritos (corazones)
-        const botonesFavorito = document.querySelectorAll('.boton-favorito');
-        botonesFavorito.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                button.classList.toggle('activo');
-            });
-        });
-
-        // Buscador desplegable y filtro
-        const botonLupa = document.getElementById('boton-lupa');
-        const cajaBusqueda = document.getElementById('caja-busqueda');
-        const inputBuscar = document.getElementById('input-buscar');
-
-        botonLupa.addEventListener('click', (e) => {
-            e.stopPropagation();
-            cajaBusqueda.classList.toggle('activo');
-            if (cajaBusqueda.classList.contains('activo')) {
-                inputBuscar.focus();
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!cajaBusqueda.contains(e.target) && e.target !== botonLupa && !botonLupa.contains(e.target)) {
-                cajaBusqueda.classList.remove('activo');
-            }
-        });
-
-        inputBuscar.addEventListener('input', (e) => {
-            const textoBusqueda = e.target.value.toLowerCase().trim();
-            const tarjetas = document.querySelectorAll('.tarjeta-producto');
-
-            tarjetas.forEach(tarjeta => {
-                const nombreProducto = tarjeta.querySelector('.nombre-producto').textContent.toLowerCase();
-                if (nombreProducto.includes(textoBusqueda)) {
-                    tarjeta.style.display = 'block';
-                } else {
-                    tarjeta.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
-    <!-- Carga dinámica de productos desde Supabase -->
+    <script src="index.js"></script>
     <script>
     (async function loadDynamicProducts() {
       if (document.body.dataset.productsSection) return;
       try {
-        const res = await fetch('/api/products?section=inicio');
-        if (!res.ok) return;
-        const products = await res.json();
-        if (!products || !products.length) return;
-
+        const response = await fetch('/api/products?section=inicio');
+        if (!response.ok) return;
+        const products = await response.json();
         const grid = document.querySelector('.grilla-productos');
-        if (!grid) return;
-        const existingIds = new Set([...grid.querySelectorAll('[data-id]')].map(el => el.dataset.id));
-        const ICON_HEART = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
-        const ICON_CART = `<svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><line x1="12" y1="10" x2="12" y2="16"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>`;
+        if (!grid || !Array.isArray(products)) return;
 
-        for (const p of products) {
-          if (existingIds.has(p.id)) continue;
-          const priceStr = p.price === 0 ? '$0 (GRATIS)' : `$${Number(p.price).toLocaleString('es-AR')}`;
-          const art = document.createElement('article');
-          art.className = 'tarjeta-producto';
-          art.dataset.id = p.id;
-          art.innerHTML = `
+        const iconHeart = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>';
+        const iconCart = '<svg class="icono-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><line x1="12" y1="10" x2="12" y2="16"></line><line x1="9" y1="13" x2="15" y2="13"></line></svg>';
+
+        for (const product of products) {
+          if (grid.querySelector(`[data-id="${CSS.escape(product.id)}"]`)) continue;
+          const price = product.price === 0 ? '$0 (GRATIS)' : `$${Number(product.price).toLocaleString('es-AR')}`;
+          const card = document.createElement('article');
+          card.className = 'tarjeta-producto';
+          card.dataset.id = product.id;
+          card.innerHTML = `
             <div class="contenedor-imagen">
-              <a href="javascript:void(0)" class="enlace-detalle-producto">
-                <img src="${p.image_portada || ''}" alt="${p.title}">
-              </a>
-              <button class="boton-favorito" aria-label="Añadir a favoritos">${ICON_HEART}</button>
+              <a href="javascript:void(0)" class="enlace-detalle-producto"><img src="${product.image_portada || ''}" alt="${product.title}"></a>
+              <button class="boton-favorito" aria-label="Añadir a favoritos">${iconHeart}</button>
             </div>
             <div class="info-producto">
-              <div class="detalles-texto">
-                <h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">${p.title.toUpperCase()}</a></h3>
-                <p class="precio-producto">${priceStr}</p>
-              </div>
-              <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">${ICON_CART}</button>
+              <div class="detalles-texto"><h3 class="nombre-producto"><a href="javascript:void(0)" class="enlace-detalle-producto">${product.title.toUpperCase()}</a></h3><p class="precio-producto">${price}</p></div>
+              <button class="boton-agregar-rapido" aria-label="Añadir directo al carrito">${iconCart}</button>
             </div>`;
 
-          if (typeof PRODUCTOS_DATA !== 'undefined' && !PRODUCTOS_DATA[p.id]) {
-            PRODUCTOS_DATA[p.id] = {
-              nombre: p.title.toUpperCase(),
-              precio: priceStr,
-              stock: p.price === 0 ? 'Descarga gratuita' : 'Stock disponible',
-              fotos: [p.image_portada, p.image_detalle].filter(Boolean),
-              especificaciones: [],
-              descripcion: p.description || ''
-            };
-          }
-
-          art.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img').forEach(el => {
-            el.addEventListener('click', e => { e.preventDefault(); if(typeof abrirModalProducto==='function') abrirModalProducto(p.id); });
+          window.PRODUCTOS_DATA[product.id] = window.PRODUCTOS_DATA[product.id] || {
+            nombre: product.title.toUpperCase(),
+            precio: price,
+            stock: product.price === 0 ? 'Descarga gratuita' : 'Stock disponible',
+            fotos: [product.image_portada, product.image_detalle].filter(Boolean),
+            especificaciones: [],
+            descripcion: product.description || ''
+          };
+          card.querySelectorAll('.enlace-detalle-producto, .contenedor-imagen img').forEach(element => {
+            element.addEventListener('click', event => {
+              event.preventDefault();
+              window.abrirModalProducto(product.id);
+            });
           });
-          art.querySelector('.boton-agregar-rapido').addEventListener('click', e => {
-            e.stopPropagation();
-            if (window.agregarAlCarrito) window.agregarAlCarrito(p.id, p.title.toUpperCase(), 1, e.currentTarget);
+          card.querySelector('.boton-agregar-rapido').addEventListener('click', event => {
+            event.stopPropagation();
+            if (window.agregarAlCarrito) window.agregarAlCarrito(product.id, product.title.toUpperCase(), 1, event.currentTarget);
           });
-          art.querySelector('.boton-favorito').addEventListener('click', e => {
-            e.stopPropagation();
-            e.currentTarget.classList.toggle('activo');
+          card.querySelector('.boton-favorito').addEventListener('click', event => {
+            event.stopPropagation();
+            event.currentTarget.classList.toggle('activo');
           });
-
-          grid.appendChild(art);
+          grid.appendChild(card);
         }
-      } catch(e) {
-        console.warn('Productos dinámicos no disponibles:', e.message);
+      } catch (error) {
+        console.warn('Productos dinámicos no disponibles:', error.message);
       }
     })();
     </script>
 </body>
+
 </html>

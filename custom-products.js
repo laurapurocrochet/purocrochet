@@ -13,6 +13,9 @@
   }
 
   function createCard(product) {
+    if (product.id === 'gratis-pareo') {
+      product = { ...product, image_portada: 'Pareo foto9.jpeg', image_detalle: 'Pareo foto8.jpeg' };
+    }
     registerForModal(product);
     const card = document.createElement('article');
     card.className = 'tarjeta-producto'; card.dataset.id = product.id;
@@ -33,12 +36,17 @@
       const response = await fetch(`/api/products?section=${encodeURIComponent(section)}`);
       if (!response.ok) throw new Error('No se pudo cargar el catálogo');
       const products = await response.json();
-      grid.replaceChildren();
-      products.forEach(product => grid.appendChild(createCard(product)));
-      if (!products.length) grid.innerHTML = '<p class="catalogo-vacio">Próximamente habrá nuevos patrones por acá.</p>';
+      if (products.length) {
+        grid.replaceChildren();
+        products.forEach(product => grid.appendChild(createCard(product)));
+      } else if (!grid.querySelector('.tarjeta-producto')) {
+        grid.innerHTML = '<p class="catalogo-vacio">Próximamente habrá nuevos patrones por acá.</p>';
+      }
     } catch (error) {
       console.warn('Catálogo no disponible:', error.message);
-      grid.innerHTML = '<p class="catalogo-vacio">No pudimos cargar los patrones. Intentá nuevamente en unos minutos.</p>';
+      if (!grid.querySelector('.tarjeta-producto')) {
+        grid.innerHTML = '<p class="catalogo-vacio">No pudimos cargar los patrones. Intentá nuevamente en unos minutos.</p>';
+      }
     } finally { grid.removeAttribute('aria-busy'); }
   }
   document.addEventListener('DOMContentLoaded', loadCatalog);
