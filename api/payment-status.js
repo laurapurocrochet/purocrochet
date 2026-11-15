@@ -1,7 +1,7 @@
 import { getPayment } from '../lib/mercadopago.js';
-import { productFor } from '../lib/products.js';
-import { findOrder, updateOrder, signedDownload, getPatternById } from '../lib/supabase.js';
+import { findOrder, updateOrder } from '../lib/supabase.js';
 import { sendPurchaseEmails } from '../lib/email.js';
+import { resolveOrderItems } from '../lib/order-delivery.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -11,7 +11,6 @@ export default async function handler(req, res) {
   try {
     const reference = String(req.query.order || req.query.external_reference || '');
     const paymentId = String(req.query.payment_id || req.query.collection_id || '');
-    const clientStatus = String(req.query.status || req.query.collection_status || '');
 
     const order = await findOrder(reference);
 
@@ -20,7 +19,7 @@ export default async function handler(req, res) {
       return res.status(404).json({ status: 'not_found' });
     }
 
-    let status = clientStatus || 'waiting';
+    let status = order?.status || 'waiting';
     let paymentData = null;
 
     if (paymentId && paymentId !== 'null' && paymentId !== 'undefined') {
@@ -31,7 +30,6 @@ export default async function handler(req, res) {
         }
       } catch (err) {
         console.warn('[PaymentStatus] No se pudo verificar el pago directamente con MP:', err.message);
-        if (clientStatus === 'approved') status = 'approved';
       }
     }
 
@@ -44,40 +42,20 @@ export default async function handler(req, res) {
       return res.status(200).json({ status: status || 'waiting' });
     }
 
-    // Preparar lista completa de ítems con sus archivos y enlaces de descarga
-    let itemsToDownload = [];
-
-    if (order && Array.isArray(order.items) && order.items.length > 0) {
-      for (const item of order.items) {
-        const downloadUrl = await signedDownload(item.file);
-        itemsToDownload.push({
-          id: item.id,
-          title: item.title,
-          file: item.file,
-          downloadUrl
-        });
-      }
-    } else if (order && order.product_id && order.product_id !== 'multiple') {
-      const product = (await getPatternById(order.product_id)) || productFor(order.product_id);
-      if (product) {
-        const downloadUrl = await signedDownload(product.file);
-        itemsToDownload.push({
-          id: product.id,
-          title: product.title,
-          file: product.file,
-          downloadUrl
-        });
-      }
+    if (!order) {
+      return res.status(409).json({
+        status: 'error',
+        code: 'order_not_found',
+        message: 'El pago fue aprobado, pero no pudimos recuperar los artículos del pedido. Contactanos para recibir tu patrón.'
+      });
     }
 
-    // Si por alguna razón no se encontraron ítems pero el pago fue aprobado
+    const itemsToDownload = await resolveOrderItems(order);
     if (itemsToDownload.length === 0) {
-      const defaultProduct = (await getPatternById('ruana-abrazo')) || productFor('ruana-abrazo');
-      itemsToDownload.push({
-        id: defaultProduct ? defaultProduct.id : 'guia',
-        title: defaultProduct ? defaultProduct.title : 'Guía de tejido Puro Crochet',
-        file: defaultProduct ? defaultProduct.file : null,
-        downloadUrl: defaultProduct ? await signedDownload(defaultProduct.file) : '#'
+      return res.status(409).json({
+        status: 'error',
+        code: 'order_items_missing',
+        message: 'El pago fue aprobado, pero el pedido no tiene archivos descargables configurados. Contactanos para recibir tu patrón.'
       });
     }
 

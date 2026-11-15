@@ -1,7 +1,7 @@
 import { getPayment } from '../../lib/mercadopago.js';
-import { findOrder, updateOrder, signedDownload, getPatternById } from '../../lib/supabase.js';
-import { productFor } from '../../lib/products.js';
+import { findOrder, updateOrder } from '../../lib/supabase.js';
 import { sendPurchaseEmails } from '../../lib/email.js';
+import { resolveOrderItems } from '../../lib/order-delivery.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,54 +17,28 @@ export default async function handler(req, res) {
       if (payment && payment.status === 'approved') {
         const reference = payment.external_reference;
         const order = reference ? await findOrder(reference) : null;
-        const buyerEmail = (order && order.buyer_email) || payment.payer?.email;
+        if (!order) {
+          console.error(`[Webhook] Pedido no encontrado para la referencia ${reference || '(vacía)'}`);
+          return res.status(200).json({ received: true, orderFound: false });
+        }
 
-        if (buyerEmail && (!order || !order.email_sent)) {
-          // Extraer todos los ítems de la orden
-          let itemsToDeliver = [];
-
-          if (order && Array.isArray(order.items) && order.items.length > 0) {
-            for (const item of order.items) {
-              const downloadUrl = await signedDownload(item.file);
-              itemsToDeliver.push({
-                id: item.id,
-                title: item.title,
-                file: item.file,
-                downloadUrl
-              });
-            }
-          } else if (order && order.product_id && order.product_id !== 'multiple') {
-            const product = (await getPatternById(order.product_id)) || productFor(order.product_id);
-            if (product) {
-              const downloadUrl = await signedDownload(product.file);
-              itemsToDeliver.push({
-                id: product.id,
-                title: product.title,
-                file: product.file,
-                downloadUrl
-              });
-            }
-          }
-
+        const buyerEmail = order.buyer_email || payment.payer?.email;
+        if (buyerEmail && !order.email_sent) {
+          const itemsToDeliver = await resolveOrderItems(order);
           if (itemsToDeliver.length === 0) {
-            const defaultProduct = (await getPatternById('ruana-abrazo')) || productFor('ruana-abrazo');
-            itemsToDeliver.push({
-              id: 'guia',
-              title: defaultProduct ? defaultProduct.title : 'Guía de tejido Puro Crochet',
-              file: defaultProduct ? defaultProduct.file : null,
-              downloadUrl: defaultProduct ? await signedDownload(defaultProduct.file) : '#'
-            });
+            console.error(`[Webhook] Pedido sin artículos descargables para la referencia ${reference}`);
+            return res.status(200).json({ received: true, itemsFound: false });
           }
 
-          await sendPurchaseEmails({
+          const result = await sendPurchaseEmails({
             buyerEmail,
             ownerEmail: process.env.OWNER_EMAIL,
             items: itemsToDeliver,
             paymentId,
-            orderReference: reference || ''
+            orderReference: reference
           });
 
-          if (reference) {
+          if (result?.success && reference) {
             await updateOrder(reference, {
               status: 'approved',
               email_sent: true,
