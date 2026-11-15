@@ -6,7 +6,7 @@
   const escapeHtml = value => String(value || '').replace(/[&<>'"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;' })[c]);
 
   function registerForModal(product) {
-    const data = { nombre: product.title.toUpperCase(), precio: priceLabel(product.price), stock: Number(product.price) === 0 ? 'Descarga gratuita inmediata' : 'Entrega inmediata vía Email (PDF descargable)', fotos: [product.image_portada, product.image_detalle].filter(Boolean), especificaciones: [], descripcion: product.description || '' };
+    const data = { nombre: product.title.toUpperCase(), precio: priceLabel(product.price), precioNumerico: Number(product.price), stock: Number(product.price) === 0 ? 'Descarga gratuita inmediata' : 'Entrega inmediata vía Email (PDF descargable)', fotos: [product.image_portada, product.image_detalle].filter(Boolean), especificaciones: [], descripcion: product.description || '' };
     if (window.PRODUCTOS_DATA) window.PRODUCTOS_DATA[product.id] = data;
     if (window.PRODUCTOS_GUIAS_DATA) window.PRODUCTOS_GUIAS_DATA[product.id] = data;
     if (window.PRODUCTOS_GRATIS_DATA) window.PRODUCTOS_GRATIS_DATA[product.id] = data;

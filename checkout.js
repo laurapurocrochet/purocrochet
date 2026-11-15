@@ -232,7 +232,8 @@
         return sum + (itemPrice * (item.quantity || 1));
       }, 0);
     } else {
-      const price = (purchase.productId in PRODUCT_PRICES) ? PRODUCT_PRICES[purchase.productId] : 20000;
+      const hasPurchasePrice = typeof purchase.price === 'number' && Number.isFinite(purchase.price);
+      const price = hasPurchasePrice ? purchase.price : ((purchase.productId in PRODUCT_PRICES) ? PRODUCT_PRICES[purchase.productId] : 20000);
       const qty = Number(purchase.quantity) || 1;
       const img = PRODUCT_IMAGES[purchase.productId] || 'banner.jpg';
       itemsToRender = [{
@@ -277,7 +278,7 @@
   }
 
   // Iniciar compra (Global)
-  window.iniciarCompraProducto = (productId, title, quantity = 1, cartItems = null) => {
+  window.iniciarCompraProducto = (productId, title, quantity = 1, cartItems = null, price = null) => {
     ensureCheckoutModal();
     if (!dialog) return;
 
@@ -285,7 +286,8 @@
       productId,
       title,
       quantity: Number(quantity) || 1,
-      items: Array.isArray(cartItems) ? cartItems : null
+      items: Array.isArray(cartItems) ? cartItems : null,
+      price: typeof price === 'number' && Number.isFinite(price) ? price : null
     };
 
     const emailInput = dialog.querySelector('#checkout-email');

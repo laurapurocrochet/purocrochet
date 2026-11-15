@@ -255,7 +255,10 @@
       btnModalAgregarCarrito.addEventListener('click', (e) => {
         const cant = parseInt(inputCantidad?.value) || 1;
         if (window.agregarAlCarrito && productoActualIdSeleccionado) {
-          window.agregarAlCarrito(productoActualIdSeleccionado, productoActualSeleccionado?.nombre, cant, e.currentTarget);
+          window.agregarAlCarrito(productoActualIdSeleccionado, productoActualSeleccionado?.nombre, cant, e.currentTarget, {
+            price: productoActualSeleccionado?.precioNumerico,
+            image: productoActualSeleccionado?.fotos?.[0]
+          });
         }
         cerrarModal();
       });
@@ -265,7 +268,7 @@
       btnComprarAhora.addEventListener('click', () => {
         const cant = parseInt(inputCantidad?.value) || 1;
         if (window.iniciarCompraProducto && productoActualIdSeleccionado) {
-          window.iniciarCompraProducto(productoActualIdSeleccionado, productoActualSeleccionado?.nombre, cant);
+          window.iniciarCompraProducto(productoActualIdSeleccionado, productoActualSeleccionado?.nombre, cant, null, productoActualSeleccionado?.precioNumerico);
         }
       });
     }

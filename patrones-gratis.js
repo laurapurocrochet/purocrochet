@@ -159,7 +159,10 @@
       btnModalAgregarCarrito.addEventListener('click', (e) => {
         const cant = parseInt(inputCantidad?.value) || 1;
         if (window.agregarAlCarrito && prodIdSeleccionado && prodSeleccionado) {
-          window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
+          window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget, {
+            price: prodSeleccionado.precioNumerico,
+            image: prodSeleccionado.fotos?.[0]
+          });
         }
         cerrarModal();
       });
@@ -169,7 +172,7 @@
       btnComprarAhora.addEventListener('click', (e) => {
         const cant = parseInt(inputCantidad?.value) || 1;
         if (window.iniciarCompraProducto && prodIdSeleccionado && prodSeleccionado) {
-          window.iniciarCompraProducto(prodIdSeleccionado, prodSeleccionado.nombre, cant);
+          window.iniciarCompraProducto(prodIdSeleccionado, prodSeleccionado.nombre, cant, null, prodSeleccionado.precioNumerico);
         } else if (window.agregarAlCarrito && prodIdSeleccionado && prodSeleccionado) {
           window.agregarAlCarrito(prodIdSeleccionado, prodSeleccionado.nombre, cant, e.currentTarget);
           if (window.puroCrochetCart) window.puroCrochetCart.openCartDrawer();
