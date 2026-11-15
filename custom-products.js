@@ -29,8 +29,13 @@
 
   async function loadCatalog() {
     const section = document.body.dataset.productsSection;
-    const grid = document.querySelector('[data-products-grid]');
+    const grid = document.querySelector('[data-products-grid]:not([data-products-grid="esencia"])');
+    const esenciaGrid = section === 'inicio' ? document.querySelector('[data-products-grid="esencia"]') : null;
     if (!section || !grid) return;
+    if (esenciaGrid) {
+      const ponchoLuzCard = grid.querySelector('[data-id="poncho-luz"]');
+      if (ponchoLuzCard) esenciaGrid.appendChild(ponchoLuzCard);
+    }
     grid.setAttribute('aria-busy', 'true');
     try {
       const response = await fetch(`/api/products?section=${encodeURIComponent(section)}`);
@@ -38,7 +43,17 @@
       const products = await response.json();
       if (products.length) {
         grid.replaceChildren();
-        products.forEach(product => grid.appendChild(createCard(product)));
+        if (esenciaGrid) esenciaGrid.replaceChildren();
+        const esenciaIds = new Set([
+          'patron-poncho-luz',
+          'patron-sueter-prisma',
+          'patron-blusa-oliva',
+          'patron-remera-ginevra'
+        ]);
+        products.forEach(product => {
+          const targetGrid = esenciaIds.has(product.id) && esenciaGrid ? esenciaGrid : grid;
+          targetGrid.appendChild(createCard(product));
+        });
       } else if (!grid.querySelector('.tarjeta-producto')) {
         grid.innerHTML = '<p class="catalogo-vacio">Próximamente habrá nuevos patrones por acá.</p>';
       }

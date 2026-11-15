@@ -783,11 +783,12 @@
     await Promise.all([loadProducts(), loadCollections()]);
   }
 
-  function showLogin() {
+  function showLogin(message = '') {
     _token = null;
     sessionStorage.removeItem(TOKEN_KEY);
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('login-error').textContent = message;
   }
 
   // ── Tab navigation ─────────────────────────────────────────────────────────
@@ -995,6 +996,10 @@
         if (!confirm(`¿Eliminar "${p.title}"? Esta acción no se puede deshacer.`)) return;
         try {
           const r = await fetch(`/api/admin/products/${encodeURIComponent(p.id)}`, { method: 'DELETE', headers: authHeaders() });
+          if (r.status === 401) {
+            showLogin('La sesión venció o dejó de ser válida. Iniciá sesión nuevamente y volvé a eliminar el patrón.');
+            return;
+          }
           if (!r.ok) throw new Error((await r.json()).error);
           await loadProducts();
         } catch(e) { alert('Error: ' + e.message); }
