@@ -1,5 +1,14 @@
 import { isAdminRequest } from '../../../lib/adminAuth.js';
-import { getPatterns, createPattern } from '../../../lib/supabase.js';
+import { getPatterns, getPatternById, createPattern, addPatternSection } from '../../../lib/supabase.js';
+
+function isPatternIdConflict(error) {
+  try {
+    const details = JSON.parse(error.message);
+    return details.code === '23505' && details.details?.startsWith('Key (id)=');
+  } catch {
+    return false;
+  }
+}
 
 export default async function handler(req, res) {
   if (!isAdminRequest(req)) return res.status(401).json({ error: 'No autorizado' });
@@ -10,7 +19,23 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    try { return res.status(201).json(await createPattern(req.body)); }
+    try {
+      const data = req.body || {};
+      const existing = await getPatternById(data.id);
+      if (existing) {
+        await addPatternSection(data.id, data.section);
+        return res.status(200).json(existing);
+      }
+      try {
+        return res.status(201).json(await createPattern(data));
+      } catch (error) {
+        if (!isPatternIdConflict(error)) throw error;
+        const duplicate = await getPatternById(data.id);
+        if (!duplicate) throw error;
+        await addPatternSection(data.id, data.section);
+        return res.status(200).json(duplicate);
+      }
+    }
     catch (e) { return res.status(400).json({ error: e.message }); }
   }
 

@@ -893,7 +893,7 @@
       const text = document.createElement('span');
       text.textContent = product.title;
       const meta = document.createElement('small');
-      meta.textContent = `${product.section} · ${product.id}`;
+      meta.textContent = `${sectionsFor(product).join(', ')} · ${product.id}`;
       text.appendChild(meta);
       label.append(checkbox, text);
       options.appendChild(label);
@@ -921,9 +921,9 @@
 
   function renderAll() {
     const todos = _allProducts;
-    const inicio = todos.filter(p => p.section === 'inicio');
-    const guias = todos.filter(p => p.section === 'guias');
-    const gratis = todos.filter(p => p.section === 'gratis');
+    const inicio = todos.filter(p => sectionsFor(p).includes('inicio'));
+    const guias = todos.filter(p => sectionsFor(p).includes('guias'));
+    const gratis = todos.filter(p => sectionsFor(p).includes('gratis'));
 
     // Stats
     document.getElementById('s-total').textContent = todos.length;
@@ -938,8 +938,12 @@
     renderProductList('product-list', todos);
   }
 
+  function sectionsFor(product) {
+    return product.sections?.length ? product.sections : [product.section];
+  }
+
   function renderSection(section) {
-    const items = _allProducts.filter(p => p.section === section);
+    const items = _allProducts.filter(p => sectionsFor(p).includes(section));
     renderProductList('product-list-' + section, items);
   }
 
@@ -960,7 +964,10 @@
     for (const p of products) {
       const priceStr = p.price === 0 ? '<span style="color:var(--green); font-weight:700;">GRATIS</span>' :
         `<strong>$${Number(p.price).toLocaleString('es-AR')}</strong>`;
-      const sectionBadge = { inicio: 'badge-inicio', guias: 'badge-guias', gratis: 'badge-gratis' }[p.section] || '';
+      const sectionBadges = sectionsFor(p).map(section => {
+        const badgeClass = { inicio: 'badge-inicio', guias: 'badge-guias', gratis: 'badge-gratis' }[section] || '';
+        return `<span class="badge ${badgeClass}">${section}</span>`;
+      }).join('');
       const visibleBadge = p.visible === false ? '<span class="badge badge-hidden">Oculto</span>' : '';
 
       const item = document.createElement('div');
@@ -972,7 +979,7 @@
           <div class="pi-title">${p.title}</div>
           <div class="pi-meta">
             ${priceStr}
-            <span class="badge ${sectionBadge}">${p.section}</span>
+            ${sectionBadges}
             ${visibleBadge}
             <span style="color:var(--text-muted); font-size:11px;">ID: ${p.id}</span>
           </div>
@@ -1105,6 +1112,8 @@
     submitBtn.textContent = 'Guardando...';
 
     try {
+      const existingPattern = _allProducts.find(product => product.id === data.id);
+      const alreadyInSection = existingPattern && sectionsFor(existingPattern).includes(data.section);
       async function upload(file, kind) {
         if (!file) return null;
         const form = new FormData();
@@ -1112,25 +1121,39 @@
         form.append('kind', kind);
         const response = await fetch('/api/admin/uploads', { method: 'POST', headers: { Authorization: `Bearer ${_token}` }, body: form });
         const uploaded = await response.json();
+        if (response.status === 401) {
+          showLogin();
+          throw new Error('La sesión venció. Iniciá sesión y volvé a guardar el patrón.');
+        }
         if (!response.ok) throw new Error(uploaded.error || 'No se pudo subir el archivo');
         return uploaded.path;
       }
-      submitBtn.textContent = 'Subiendo archivos...';
-      data.file = await upload(document.getElementById('n-file').files[0], 'pdf');
-      data.image_portada = await upload(document.getElementById('n-img-portada').files[0], 'image');
-      data.image_detalle = await upload(document.getElementById('n-img-detalle').files[0], 'image');
+      if (!existingPattern) {
+        submitBtn.textContent = 'Subiendo archivos...';
+        data.file = await upload(document.getElementById('n-file').files[0], 'pdf');
+        data.image_portada = await upload(document.getElementById('n-img-portada').files[0], 'image');
+        data.image_detalle = await upload(document.getElementById('n-img-detalle').files[0], 'image');
+      }
       submitBtn.textContent = 'Guardando...';
       const r = await fetch('/api/admin/products', {
         method: 'POST',
         headers: authHeaders(),
-        body: JSON.stringify(data)
+        body: JSON.stringify(existingPattern ? { id: data.id, section: data.section } : data)
       });
       const d = await r.json();
+      if (r.status === 401) {
+        showLogin();
+        throw new Error('La sesión venció. Iniciá sesión y volvé a guardar el patrón.');
+      }
       if (!r.ok) throw new Error(d.error || JSON.stringify(d));
 
       notice.style.display = 'block';
       notice.className = 'notice notice-success';
-      notice.textContent = `✅ "${data.title}" guardado en Supabase. Ya aparece en la sección "${data.section}".`;
+      notice.textContent = r.status === 200
+        ? alreadyInSection
+          ? `✅ "${existingPattern?.title || data.title}" ya aparece en la sección "${data.section}".`
+          : `✅ "${existingPattern?.title || data.title}" ahora también aparece en la sección "${data.section}".`
+        : `✅ "${data.title}" guardado en Supabase. Ya aparece en la sección "${data.section}".`;
       e.target.reset();
       document.getElementById('n-price').value = '0';
       await loadProducts();
